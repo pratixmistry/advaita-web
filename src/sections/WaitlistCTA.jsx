@@ -57,7 +57,7 @@ export function WaitlistCTA() {
                 whileTap={{ scale: 0.97 }}
                 style={{ padding: '14px 28px', background: '#F47B20', color: '#fff', border: 'none', borderRadius: 999, fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 18px rgba(244,123,32,0.28)', whiteSpace: 'nowrap', fontFamily: 'inherit' }}
               >
-                Join Waitlist
+                Get early access
               </motion.button>
             </form>
           ) : (

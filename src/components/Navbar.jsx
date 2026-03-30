@@ -113,7 +113,7 @@ export function Navbar({ offsetTop = 0, onLogin }) {
               onMouseEnter={e => e.currentTarget.style.background = '#1E293B'}
               onMouseLeave={e => e.currentTarget.style.background = '#0F172A'}
             >
-              Join Waitlist
+              Get early access
               <span style={{ color: '#F47B20', fontSize: '1rem', lineHeight: 1 }}>→</span>
             </motion.a>
           </div>
