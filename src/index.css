@@ -244,3 +244,18 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', sans-serif; }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #f8f8f6; }
 ::-webkit-scrollbar-thumb { background: rgba(244,123,32,0.4); border-radius: 10px; }
+
+/* ─── BENTO GRID RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Collapse bento 2-col grid to single column on mobile */
+  .lp-bento-grid,
+  .lp-bento-grid > * {
+    grid-column: span 1 !important;
+  }
+}
+
+/* ─── PULSE ANIMATION ─────────────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

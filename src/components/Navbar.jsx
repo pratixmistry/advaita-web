@@ -53,14 +53,14 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
         {/* Desktop CTAs */}
         <div className="lp-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <a href="#contact"
-            style={{ fontSize: '1.05rem', fontWeight: 600, color: '#64748B', textDecoration: 'none', padding: '8px 14px', transition: 'color 0.15s' }}
-            onMouseEnter={e => e.currentTarget.style.color = '#111'}
-            onMouseLeave={e => e.currentTarget.style.color = '#64748B'}
+            style={{ fontSize: '1.05rem', fontWeight: 600, color: '#111111', textDecoration: 'none', padding: '8px 14px', transition: 'color 0.15s' }}
+            onMouseEnter={e => e.currentTarget.style.color = '#F47B20'}
+            onMouseLeave={e => e.currentTarget.style.color = '#111111'}
           >
             Contact Sales
           </a>
           <a href="#waitlist"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '1.05rem', fontWeight: 700, color: '#F0EEE8', textDecoration: 'none', padding: '10px 22px', background: '#111111', borderRadius: 4, transition: 'background 0.15s', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', textDecoration: 'none', padding: '10px 22px', background: '#111111', borderRadius: 4, transition: 'background 0.15s', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}
             onMouseEnter={e => e.currentTarget.style.background = '#2A2A2A'}
             onMouseLeave={e => e.currentTarget.style.background = '#111111'}
           >
@@ -120,7 +120,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 16, marginTop: 8, borderTop: '1px solid rgba(0,0,0,0.06)' }}>
                 <a href="#pricing" onClick={e => { e.preventDefault(); setMenuOpen(false); onPricing && onPricing() }} style={{ textAlign: 'center', padding: '11px 20px', border: '1.5px solid rgba(0,0,0,0.14)', borderRadius: 4, fontSize: '0.875rem', fontWeight: 600, color: '#111', textDecoration: 'none' }}>Pricing</a>
                 <a href="#contact" style={{ textAlign: 'center', padding: '11px 20px', border: '1.5px solid rgba(0,0,0,0.14)', borderRadius: 4, fontSize: '0.875rem', fontWeight: 600, color: '#111', textDecoration: 'none' }}>Contact Sales</a>
-                <a href="#waitlist" style={{ textAlign: 'center', padding: '11px 20px', background: '#111', borderRadius: 4, fontSize: '0.875rem', fontWeight: 700, color: '#F0EEE8', textDecoration: 'none' }}>Get started free</a>
+                <a href="#waitlist" style={{ textAlign: 'center', padding: '11px 20px', background: '#111', borderRadius: 4, fontSize: '0.875rem', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}>Get started free</a>
               </div>
             </div>
           </motion.div>
