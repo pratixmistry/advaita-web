@@ -40,7 +40,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: scrolled ? '62px' : 'auto',
+    ...(scrolled && { height: '62px' }),
     padding: scrolled ? '0 36px' : '0',
     borderRadius: scrolled ? '999px' : '0px',
     background: scrolled ? 'rgba(14,14,14,0.72)' : 'transparent',
@@ -146,7 +146,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
       {/* ── Mobile hamburger ── */}
       <button
         className="mobile-menu-btn"
-        onClick={() => setMenuOpen(o => !o)}
+        onClick={() => setMenuOpen(o => { if (o) setMobileSection(null); return !o })}
         aria-label="Toggle menu"
         style={{
           position: 'fixed',
