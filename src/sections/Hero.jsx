@@ -416,14 +416,46 @@ export function Hero() {
             </a>
           </motion.div>
 
-          {/* Social proof */}
-          <motion.div variants={fadeUp} style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-            {['Backed by iHub', 'Open Source', 'Self-hosted'].map((item, i) => (
-              <span key={item} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                {i > 0 && <span style={{ width: 3, height: 3, borderRadius: '50%', background: '#D0D0D0', display: 'inline-block' }} />}
-                <span style={{ fontSize: '0.75rem', color: '#999', fontFamily: "'Manrope', sans-serif", fontWeight: 500 }}>{item}</span>
-              </span>
-            ))}
+          {/* Stat chips */}
+          <motion.div variants={fadeUp} style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+            {/* Self-hosted — orange */}
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '8px 16px', borderRadius: 4,
+              background: 'rgba(244,123,32,0.1)', color: '#b85a0d',
+              border: '1px solid rgba(244,123,32,0.2)',
+              fontSize: '0.78rem', fontWeight: 700,
+              fontFamily: "'Manrope', sans-serif",
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#F47B20', display: 'inline-block', flexShrink: 0 }} />
+              Self-hosted
+            </span>
+
+            {/* MIT Licensed — dark/green */}
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '8px 16px', borderRadius: 4,
+              background: 'rgba(17,17,17,0.07)', color: '#333333',
+              border: '1px solid rgba(17,17,17,0.12)',
+              fontSize: '0.78rem', fontWeight: 700,
+              fontFamily: "'Manrope', sans-serif",
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#1A7A2E', display: 'inline-block', flexShrink: 0 }} />
+              MIT Licensed
+            </span>
+
+            {/* Backed by iHub — blue */}
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '8px 16px', borderRadius: 4,
+              background: 'rgba(49,120,198,0.08)', color: '#1a5fa8',
+              border: '1px solid rgba(49,120,198,0.18)',
+              fontSize: '0.78rem', fontWeight: 700,
+              fontFamily: "'Manrope', sans-serif",
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3178C6', display: 'inline-block', flexShrink: 0 }} />
+              Backed by iHub
+            </span>
           </motion.div>
           </div>
         </motion.div>
