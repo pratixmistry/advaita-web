@@ -40,7 +40,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: scrolled ? '62px' : '68px',
+    height: scrolled ? '62px' : 'auto',
     padding: scrolled ? '0 36px' : '0',
     borderRadius: scrolled ? '999px' : '0px',
     background: scrolled ? 'rgba(14,14,14,0.72)' : 'transparent',
@@ -54,7 +54,6 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
       : 'none',
     transition: [
       `max-width ${TRANSITION}`,
-      `height ${TRANSITION}`,
       `padding ${TRANSITION}`,
       `border-radius ${TRANSITION}`,
       `background ${TRANSITION}`,
