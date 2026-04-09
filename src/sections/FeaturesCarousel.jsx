@@ -534,39 +534,6 @@ export function FeaturesCarousel() {
   return (
     <section style={{ background: '#ffffff' }}>
 
-      {/* Section heading — preserved exactly */}
-      <div style={{ textAlign: 'center', padding: '96px 40px 56px' }}>
-        <div style={{ marginBottom: 14 }}>
-          <span style={{
-            fontSize: '0.68rem',
-            fontWeight: 600,
-            color: '#F47B20',
-            textTransform: 'uppercase',
-            letterSpacing: '0.12em',
-            fontFamily: "'Manrope', sans-serif",
-          }}>
-            Smarter Analytics for Modern Businesses
-          </span>
-        </div>
-        <h2 style={{
-          fontFamily: "'Manrope', sans-serif",
-          fontWeight: 800,
-          fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)',
-          color: '#111111',
-          margin: 0,
-          letterSpacing: '-0.025em',
-          maxWidth: 700,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          lineHeight: 1.25,
-        }}>
-          Turn Complex Data Into Clear, Confident Decisions
-          <span style={{ color: '#999999', fontWeight: 500 }}>
-            {' '}— Empowering Your Team With Insights That Drive Real Business Growth.
-          </span>
-        </h2>
-      </div>
-
       {/* Sticky scroll track — 500vh = 5 features × 100vh */}
       <div ref={sectionRef} style={{ height: '500vh', position: 'relative' }}>
         <div style={{
@@ -574,21 +541,60 @@ export function FeaturesCarousel() {
           top: 0,
           height: '100vh',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          gap: 40,
+          padding: '48px 40px 32px',
         }}>
+
+          {/* Section heading — inside sticky so no gap */}
+          <div style={{ textAlign: 'center', width: '100%', maxWidth: 1100 }}>
+            <div style={{ marginBottom: 10 }}>
+              <span style={{
+                fontSize: '0.68rem',
+                fontWeight: 600,
+                color: '#F47B20',
+                textTransform: 'uppercase',
+                letterSpacing: '0.12em',
+                fontFamily: "'Manrope', sans-serif",
+              }}>
+                Smarter Analytics for Modern Businesses
+              </span>
+            </div>
+            <h2 style={{
+              fontFamily: "'Manrope', sans-serif",
+              fontWeight: 800,
+              fontSize: 'clamp(1.5rem, 2.4vw, 2.2rem)',
+              color: '#111111',
+              margin: 0,
+              letterSpacing: '-0.025em',
+              maxWidth: 700,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              lineHeight: 1.25,
+            }}>
+              Turn Complex Data Into Clear, Confident Decisions
+              <span style={{ color: '#999999', fontWeight: 500 }}>
+                {' '}— Empowering Your Team With Insights That Drive Real Business Growth.
+              </span>
+            </h2>
+          </div>
+
+          {/* Feature list + preview */}
           <div style={{
             width: '100%',
             maxWidth: 1100,
-            padding: '0 40px',
             display: 'flex',
             gap: 40,
             alignItems: 'stretch',
-            height: 480,
+            flex: 1,
+            minHeight: 0,
           }}>
             <FeatureList activeIndex={activeIndex} />
             <FeaturePreview activeIndex={activeIndex} />
           </div>
+
         </div>
       </div>
 
