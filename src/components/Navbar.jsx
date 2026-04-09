@@ -26,7 +26,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: scrolled ? '12px 24px 0' : `0 clamp(32px, 5vw, 72px)`,
+    padding: scrolled ? '12px 24px 0' : `18px clamp(32px, 5vw, 72px)`,
     pointerEvents: 'none',
     transition: 'padding 0.55s cubic-bezier(0.4,0,0.2,1)',
   }

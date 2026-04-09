@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export function NavItem({ item, onPricing }) {
+export function NavItem({ item, onPricing, textColor = '#475569' }) {
   const [open, setOpen] = useState(false)
   const timerRef = useRef(null)
 
@@ -12,9 +12,11 @@ export function NavItem({ item, onPricing }) {
     <div style={{ position: 'relative' }} onMouseEnter={show} onMouseLeave={hide}>
       <button style={{
         display: 'flex', alignItems: 'center', gap: 4,
-        fontSize: '1.05rem', fontWeight: 600, color: open ? '#111' : '#475569',
+        fontSize: '0.92rem', fontWeight: 600,
+        color: open ? '#F47B20' : textColor,
         background: 'none', border: 'none', cursor: 'pointer', padding: '8px 2px',
         transition: 'color 0.15s', fontFamily: 'inherit',
+        whiteSpace: 'nowrap',
       }}>
         {item.label}
         <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" width="10" height="10"
@@ -38,7 +40,6 @@ export function NavItem({ item, onPricing }) {
               padding: '8px', minWidth: 220, zIndex: 100,
             }}
           >
-            {/* Arrow notch */}
             <div style={{
               position: 'absolute', top: -5, left: 20,
               width: 10, height: 10, background: '#fff',
@@ -46,7 +47,8 @@ export function NavItem({ item, onPricing }) {
               rotate: '45deg',
             }} />
             {item.links.map(l => (
-              <a key={l.label} href="#" style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '9px 12px', borderRadius: 9, textDecoration: 'none', transition: 'background 0.12s' }}
+              <a key={l.label} href="#"
+                style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '9px 12px', borderRadius: 9, textDecoration: 'none', transition: 'background 0.12s' }}
                 onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'}
                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                 onClick={e => { e.preventDefault(); if (onPricing) { onPricing(); setOpen(false) } }}
