@@ -3,133 +3,6 @@ import { motion } from 'framer-motion'
 import { stagger, fadeUp } from '../constants/index.jsx'
 import './Hero.css'
 
-function ClothCanvas() {
-  const canvasRef = React.useRef(null)
-
-  React.useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-
-    function resize() {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    // Light direction (upper-left, toward viewer) — normalised
-    const LX = -0.45, LY = -0.75, LZ = 0.48
-    const LEN = Math.sqrt(LX*LX + LY*LY + LZ*LZ)
-    const lx = LX/LEN, ly = LY/LEN, lz = LZ/LEN
-
-    // Wave parameters: N fold layers
-    const N = 8
-    const STEP = 3 // px per column
-    let t = 0
-    let rafId
-
-    // Wave y for layer i at x
-    function wy(i, x, w, h) {
-      const base = h * (0.1 + i * (0.85 / (N - 1)))
-      const freq1 = 0.0055 + i * 0.0003
-      const freq2 = freq1 * 1.97
-      const freq3 = freq1 * 4.1
-      const speed1 = 0.8 + i * 0.07
-      const speed2 = speed1 * 1.3
-      const speed3 = speed1 * 2.1
-      const amp1 = h * (0.055 - i * 0.002)
-      const amp2 = amp1 * 0.4
-      const amp3 = amp1 * 0.15
-      const phase = i * 0.72
-      return base
-        + amp1 * Math.sin(x * freq1 + t * speed1 + phase)
-        + amp2 * Math.sin(x * freq2 - t * speed2 + phase * 1.3)
-        + amp3 * Math.sin(x * freq3 + t * speed3 + phase * 0.7)
-    }
-
-    // Slope of wave (finite difference)
-    function wSlope(i, x, w, h) {
-      return (wy(i, x + 1, w, h) - wy(i, x - 1, w, h)) / 2
-    }
-
-    // Lambertian + Blinn-Phong shading → intensity 0..1
-    function shade(slope) {
-      // Surface normal from slope (dx, 1, nz tilt for roundness)
-      const nz = 0.55
-      const nx = -slope
-      const ny = 1
-      const nLen = Math.sqrt(nx*nx + ny*ny + nz*nz)
-      const nx_ = nx/nLen, ny_ = ny/nLen, nz_ = nz/nLen
-
-      const diffuse = Math.max(0, nx_*lx + ny_*ly + nz_*lz)
-
-      // Half-vector for specular
-      const hx = lx, hy = ly, hz = lz + 1
-      const hLen = Math.sqrt(hx*hx + hy*hy + hz*hz)
-      const spec = Math.pow(Math.max(0, nx_*(hx/hLen) + ny_*(hy/hLen) + nz_*(hz/hLen)), 18) * 0.45
-
-      return Math.min(1, diffuse * 0.85 + spec)
-    }
-
-    function draw() {
-      const w = canvas.width, h = canvas.height
-      if (!w || !h) { rafId = requestAnimationFrame(draw); t += 0.011; return }
-
-      ctx.clearRect(0, 0, w, h)
-
-      for (let i = 0; i < N; i++) {
-        // Draw fold as a filled band from this wave to the next (or bottom)
-        const nextBase = i < N - 1
-          ? h * (0.1 + (i + 1) * (0.85 / (N - 1)))
-          : h * 1.1
-
-        // Column-by-column rendering
-        for (let x = 0; x < w; x += STEP) {
-          const y = wy(i, x, w, h)
-          const slope = wSlope(i, x, w, h)
-          const I = shade(slope)
-
-          // Orange palette: shadow rgb(28,9,2) → highlight rgb(255,180,70)
-          const r = Math.round(28 + 227 * I)
-          const g = Math.round(9 + 171 * I)
-          const b = Math.round(2 + 68 * I)
-
-          // Height of this column's fold band
-          const bandH = nextBase - y + STEP * 2
-
-          ctx.fillStyle = `rgb(${r},${g},${b})`
-          ctx.fillRect(x, y, STEP, Math.max(0, bandH))
-        }
-      }
-
-      // Soft radial bloom overlay
-      const grad = ctx.createRadialGradient(w * 0.55, h * 0.22, 0, w * 0.55, h * 0.22, w * 0.45)
-      grad.addColorStop(0, 'rgba(244,110,18,0.10)')
-      grad.addColorStop(1, 'rgba(244,110,18,0)')
-      ctx.fillStyle = grad
-      ctx.fillRect(0, 0, w, h)
-
-      t += 0.011
-      rafId = requestAnimationFrame(draw)
-    }
-
-    draw()
-
-    return () => {
-      cancelAnimationFrame(rafId)
-      window.removeEventListener('resize', resize)
-    }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-    />
-  )
-}
-
 export function Hero() {
   return (
     <section style={{ background: '#ffffff', minHeight: '90vh', display: 'flex', alignItems: 'stretch', overflow: 'hidden', width: '100%' }}>
@@ -281,30 +154,57 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* ── Right column (50%) — silk cloth canvas ── */}
+        {/* ── Right column (50%) — animated orbs ── */}
         <div style={{
           flex: '0 0 50%',
           width: '50%',
           position: 'relative',
           overflow: 'hidden',
           minHeight: '100vh',
-          background: '#080808',
+          background: '#0E0E0E',
         }}>
-          {/* Canvas animation fills the panel */}
-          <ClothCanvas />
-
-          {/* Left edge vignette — softens the seam with the left panel */}
+          {/* Base radial gradient */}
           <div style={{
-            position: 'absolute', top: 0, left: 0, bottom: 0, width: 80,
-            background: 'linear-gradient(to right, #080808, transparent)',
-            zIndex: 2, pointerEvents: 'none',
+            position: 'absolute', inset: 0,
+            background: `
+              radial-gradient(ellipse 80% 70% at 85% 15%, rgba(244,123,32,0.55) 0%, transparent 65%),
+              radial-gradient(ellipse 60% 50% at 20% 80%, rgba(244,123,32,0.12) 0%, transparent 60%),
+              linear-gradient(145deg, #1a0a00 0%, #0E0E0E 50%, #060606 100%)
+            `,
           }} />
 
-          {/* Right edge vignette */}
+          {/* Subtle grid overlay */}
           <div style={{
-            position: 'absolute', top: 0, right: 0, bottom: 0, width: 80,
-            background: 'linear-gradient(to left, #080808, transparent)',
-            zIndex: 2, pointerEvents: 'none',
+            position: 'absolute', inset: 0,
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)
+            `,
+            backgroundSize: '40px 40px',
+          }} />
+
+          {/* Floating orb 1 — large, top right */}
+          <div style={{
+            position: 'absolute', top: '-60px', right: '-60px',
+            width: 320, height: 320, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(244,123,32,0.22) 0%, transparent 70%)',
+            animation: 'orbFloat1 7s ease-in-out infinite',
+          }} />
+
+          {/* Floating orb 2 — medium, center */}
+          <div style={{
+            position: 'absolute', top: '40%', right: '20%',
+            width: 180, height: 180, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(245,208,0,0.12) 0%, transparent 70%)',
+            animation: 'orbFloat2 9s ease-in-out infinite',
+          }} />
+
+          {/* Floating orb 3 — small, bottom left */}
+          <div style={{
+            position: 'absolute', bottom: '15%', left: '10%',
+            width: 120, height: 120, borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(244,123,32,0.15) 0%, transparent 70%)',
+            animation: 'orbFloat3 6s ease-in-out infinite',
           }} />
 
           {/* Ghost tagline centred over canvas */}

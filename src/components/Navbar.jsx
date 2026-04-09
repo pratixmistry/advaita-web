@@ -26,7 +26,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: scrolled ? '0 24px' : `0 clamp(32px, 5vw, 72px)`,
+    padding: scrolled ? '12px 24px 0' : `0 clamp(32px, 5vw, 72px)`,
     pointerEvents: 'none',
     transition: 'padding 0.55s cubic-bezier(0.4,0,0.2,1)',
   }
@@ -43,14 +43,14 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
     ...(scrolled && { height: '62px' }),
     padding: scrolled ? '0 36px' : '0',
     borderRadius: scrolled ? '999px' : '0px',
-    background: scrolled ? 'rgba(14,14,14,0.72)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(22px) saturate(1.5)' : 'none',
-    WebkitBackdropFilter: scrolled ? 'blur(22px) saturate(1.5)' : 'none',
+    background: scrolled ? 'rgba(30,30,30,0.65)' : 'transparent',
+    backdropFilter: scrolled ? 'blur(28px) saturate(2)' : 'none',
+    WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(2)' : 'none',
     border: scrolled
-      ? '1px solid rgba(255,255,255,0.08)'
+      ? '1px solid rgba(255,255,255,0.12)'
       : '1px solid transparent',
     boxShadow: scrolled
-      ? '0 8px 40px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.04) inset'
+      ? '0 8px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.06) inset'
       : 'none',
     transition: [
       `max-width ${TRANSITION}`,
@@ -93,7 +93,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
               color: scrolled ? '#ffffff' : '#111111',
               transition: `color ${TRANSITION}, font-size ${TRANSITION}`,
             }}>
-              ADVAITA
+              ADVAITA INTELLIGENCE
             </span>
           </a>
 
@@ -110,7 +110,7 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
                 <NavItem
                   key={item.label}
                   item={item}
-                  textColor="rgba(255,255,255,0.75)"
+                  textColor={scrolled ? 'rgba(255,255,255,0.85)' : '#374151'}
                   onPricing={item.label === 'Pricing' ? onPricing : undefined}
                 />
               ))}
