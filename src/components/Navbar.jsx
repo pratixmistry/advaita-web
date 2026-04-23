@@ -59,19 +59,23 @@ export function Navbar({ onLogin, onPricing }) {
           height: 80,
         }}>
           {/* Logo */}
-          <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+          <a href="#" className="lp-logo" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', minWidth: 0, flexShrink: 1 }}>
             <img
                 src={logoImg}
                 alt="Advaita logo"
-                style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', background: 'none' }}
+                className="lp-logo-img"
+                style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', background: 'none', flexShrink: 0 }}
             />
-            <span style={{
+            <span className="lp-logo-text" style={{
               fontFamily: "'IBM Plex Sans', sans-serif",
               fontWeight: 500,
               fontSize: '1.20rem',
               letterSpacing: '-0.02em',
               color: '#111',
               lineHeight: 1,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}>
               ADVAITA INTELLIGENCE
             </span>

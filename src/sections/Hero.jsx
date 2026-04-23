@@ -208,7 +208,7 @@ export function Hero() {
         </motion.div>
 
         {/* Dashboard preview — spans full frame width, fixed height */}
-        <motion.div variants={fadeUp} style={{
+        <motion.div variants={fadeUp} className="hero-preview-wrap" style={{
           width: '100%',
           height: 560,
           position: 'relative',
@@ -241,7 +241,7 @@ const PREVIEW_HEIGHT = 440
 
 function DashboardPreview({ activeTab }) {
   return (
-    <div style={{
+    <div className="hero-dashboard-card" style={{
       position: 'relative',
       background: '#fff',
       borderTopLeftRadius: 4,
@@ -316,7 +316,7 @@ function LivePreview() {
         <line x1={760} x2={760} y1={40} y2={280} stroke="rgba(17,17,17,0.15)" strokeDasharray="3 3" />
       </svg>
 
-      <div style={{
+      <div className="hero-live-tooltip" style={{
         position: 'absolute',
         top: 70,
         right: 20,
@@ -402,10 +402,10 @@ function RetentionPreview() {
         <span style={{ fontWeight: 600 }}>Weekly cohort retention</span>
         <span>% returning</span>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: `90px repeat(${cols}, 1fr)`, gap: 3, alignItems: 'center' }}>
+      <div className="hero-retention-grid" style={{ display: 'grid', gridTemplateColumns: `90px repeat(${cols}, 1fr)`, gap: 3, alignItems: 'center' }}>
         <span />
-        {headers.map(h => (
-          <span key={h} style={{ fontSize: '0.68rem', color: '#8a8a8a', fontWeight: 600, textAlign: 'center' }}>{h}</span>
+        {headers.map((h, idx) => (
+          <span key={h} className={idx >= 5 ? 'hero-retention-hide' : ''} style={{ fontSize: '0.68rem', color: '#8a8a8a', fontWeight: 600, textAlign: 'center' }}>{h}</span>
         ))}
         {data.map((row, r) => (
           <Fragment key={r}>
@@ -413,7 +413,7 @@ function RetentionPreview() {
             {row.map((v, c) => {
               const intensity = Math.max(0.05, v / 100)
               return (
-                <div key={`${r}-${c}`} style={{
+                <div key={`${r}-${c}`} className={c >= 5 ? 'hero-retention-hide' : ''} style={{
                   height: 26,
                   background: `rgba(244,123,32, ${intensity})`,
                   border: '1px solid rgba(255,255,255,0.4)',
@@ -470,7 +470,7 @@ function ChatbotPreview({ variant }) {
       }
 
   return (
-    <div style={{
+    <div className="hero-chat-grid" style={{
       display: 'grid',
       gridTemplateColumns: '240px 1fr',
       gap: 18,
@@ -478,7 +478,7 @@ function ChatbotPreview({ variant }) {
       overflow: 'hidden',
     }}>
       {/* Sidebar */}
-      <div style={{ borderRight: '1px solid var(--adv-border)', paddingRight: 18 }}>
+      <div className="hero-chat-sidebar" style={{ borderRight: '1px solid var(--adv-border)', paddingRight: 18 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
           <div style={{
             width: 40, height: 40,

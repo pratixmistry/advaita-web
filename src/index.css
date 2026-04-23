@@ -42,6 +42,9 @@ h1,h2,h3,h4,h5,h6 { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; 
   padding-left: 24px;
   padding-right: 24px;
 }
+@media (max-width: 480px) {
+  .lp-wrap, .lp-wrap-wide { padding-left: 16px; padding-right: 16px; }
+}
 
 /* ─── REDESIGN TOKENS ─────────────────────────────────────────── */
 :root {
@@ -300,6 +303,102 @@ body { background: var(--adv-bg); color: var(--adv-ink); }
   }
   /* Hide floating overlays that overflow on mobile */
   .dashboard-float-badge { display: none !important; }
+}
+
+/* ─── LOGO MOBILE ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .lp-logo-img { width: 36px !important; height: 36px !important; }
+  .lp-logo-text { font-size: 0.95rem !important; }
+}
+@media (max-width: 360px) {
+  .lp-logo-text { display: none !important; }
+}
+
+/* ─── HERO MOBILE / TABLET ───────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Tabs stack 2-2-1: two per row, last one spans full width */
+  .hero-tabs {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .hero-tabs > button {
+    padding: 14px 12px !important;
+    font-size: 0.82rem !important;
+    border-right: 1px solid var(--adv-border) !important;
+    border-bottom: 1px solid var(--adv-border);
+  }
+  .hero-tabs > button:nth-child(2n) {
+    border-right: none !important;
+  }
+  .hero-tabs > button:nth-child(5) {
+    grid-column: span 2;
+    border-right: none !important;
+    border-bottom: none;
+  }
+  .hero-tabs > button:nth-child(4) {
+    border-bottom: none;
+  }
+
+  /* Compress dashboard preview area */
+  .hero-preview-wrap {
+    height: auto !important;
+    padding: 28px 20px 0 !important;
+  }
+  .hero-dashboard-card {
+    height: auto !important;
+    min-height: 460px;
+    padding: 14px !important;
+  }
+  /* Let inner content grow to the card rather than clipping */
+  .hero-dashboard-card > div:nth-child(2) {
+    overflow: visible !important;
+  }
+
+  /* Chatbot preview: collapse sidebar, give chat breathing room */
+  .hero-chat-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .hero-chat-sidebar { display: none !important; }
+
+  /* Retention: drop last columns for readability */
+  .hero-retention-grid {
+    grid-template-columns: 60px repeat(5, 1fr) !important;
+  }
+  .hero-retention-hide { display: none !important; }
+
+  /* Live preview tooltip shrinks */
+  .hero-live-tooltip {
+    top: 20px !important;
+    right: 8px !important;
+    padding: 8px 10px !important;
+    font-size: 0.68rem !important;
+    min-width: 118px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-dashboard-card { min-height: 380px; padding: 12px !important; }
+  .hero-preview-wrap { padding: 20px 12px 0 !important; min-height: 380px; }
+}
+
+/* ─── FINAL CTA MOBILE ────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .final-cta-card {
+    padding: 48px 20px !important;
+  }
+  .final-cta-form button {
+    width: 100%;
+  }
+}
+
+/* ─── FOOTER MOBILE ───────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .lp-footer-cols {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
 }
 @media (min-width: 768px) {
   .mobile-menu-btn { display: none !important; }

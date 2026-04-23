@@ -43,7 +43,7 @@ export function FinalCTA() {
   return (
     <section id="waitlist" className="lp-grid-bg" style={{ background: 'var(--adv-bg)', padding: '96px 0' }}>
       <div className="lp-wrap-wide">
-        <div style={{
+        <div className="final-cta-card" style={{
           position: 'relative',
           background: 'linear-gradient(135deg, #F47B20 0%, #F5D000 55%, #C9B8F0 100%)',
           borderRadius: 2,
@@ -98,6 +98,7 @@ export function FinalCTA() {
             {!submitted ? (
               <form
                 onSubmit={handleSubmit}
+                className="final-cta-form"
                 style={{
                   display: 'flex',
                   gap: 8,
