@@ -1,151 +1,205 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { NavItem } from './NavItem.jsx'
-import { NAV_ITEMS } from '../constants/index.jsx'
-import logoImg from '../assets/Logo.jpeg'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import logoImg from '../assets/Logo.png'
 
-export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [mobileSection, setMobileSection] = useState(null)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  // Outer wrapper: always full-width fixed, provides the horizontal inset margin.
-  // pointer-events: none so gaps between logo and links are click-through.
-  const outerStyle = {
-    position: 'fixed',
-    top: offsetTop,
-    left: 0,
-    right: 0,
-    zIndex: 60,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: scrolled ? '12px 24px 0' : `18px clamp(32px, 5vw, 72px)`,
-    pointerEvents: 'none',
-    transition: 'padding 0.55s cubic-bezier(0.4,0,0.2,1)',
+const NAV_DROPDOWNS = [
+  {
+    label: 'Product',
+    links: [
+      { label: 'Live Events', desc: 'Real-time event stream' },
+      { label: 'Funnels',     desc: 'Conversion drop-off analysis' },
+      { label: 'Retention',   desc: 'Cohort retention over time' },
+      { label: 'DS Chatbot',  desc: 'Your on-call data scientist' },
+      { label: 'UR Chatbot',  desc: 'Your always-on user researcher' },
+    ],
+  },
+  {
+    label: 'Company',
+    links: [
+      { label: 'About',    desc: 'Our mission & team' },
+      { label: 'Blog',     desc: 'Engineering & product writing' },
+      { label: 'Careers',  desc: "We're hiring" },
+      { label: 'Contact',  desc: 'Talk to us' },
+    ],
+  },
+  {
+    label: 'Pricing',
+    href: '#',
+  },
+  {
+    label: 'Docs',
+    links: [
+      { label: 'Getting Started', desc: 'Quickstart guides and tutorials', href: 'https://docs.advaita.ai/getting-started/overview' },
+      { label: 'API Reference', desc: 'Comprehensive API documentation', href: 'https://docs.advaita.ai/api/overview' },
+      { label: 'SDK', desc: 'Explore our software development kit', href: 'https://docs.advaita.ai/examples/overview' },
+    ]
   }
+]
 
-  // Inner container: transitions from full-spread transparent bar → compact glass pill.
-  const TRANSITION = '0.55s cubic-bezier(0.4,0,0.2,1)'
-  const innerStyle = {
-    pointerEvents: 'all',
-    width: '100%',
-    maxWidth: scrolled ? '860px' : '1600px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    ...(scrolled && { height: '62px' }),
-    padding: scrolled ? '0 36px' : '0',
-    borderRadius: scrolled ? '999px' : '0px',
-    background: scrolled ? 'rgba(30,30,30,0.65)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(28px) saturate(2)' : 'none',
-    WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(2)' : 'none',
-    border: scrolled
-      ? '1px solid rgba(255,255,255,0.12)'
-      : '1px solid transparent',
-    boxShadow: scrolled
-      ? '0 8px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.06) inset'
-      : 'none',
-    transition: [
-      `max-width ${TRANSITION}`,
-      `padding ${TRANSITION}`,
-      `border-radius ${TRANSITION}`,
-      `background ${TRANSITION}`,
-      `border-color ${TRANSITION}`,
-      `box-shadow ${TRANSITION}`,
-    ].join(', '),
-  }
+export function Navbar({ onLogin, onPricing }) {
+  const [openDropdown, setOpenDropdown] = useState(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
     <>
-      {/* ── Desktop navbar ── */}
-      <div style={outerStyle} className="lp-navbar-outer">
-        <div style={innerStyle}>
-
-          {/* Logo — black text in default (over white panel), white when scrolled */}
-          <a
-            href="#"
-            style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}
-          >
+      <nav style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        background: 'rgba(250,250,244,0.92)',
+        backdropFilter: 'blur(14px) saturate(1.4)',
+        WebkitBackdropFilter: 'blur(14px) saturate(1.4)',
+        borderBottom: '1px solid rgba(17,17,17,0.06)',
+        isolation: 'isolate',
+      }}>
+        <div className="lp-wrap-wide" style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: 80,
+        }}>
+          {/* Logo */}
+          <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
             <img
-              src={logoImg}
-              alt="Advaita logo"
-              style={{
-                width: scrolled ? 26 : 30,
-                height: scrolled ? 26 : 30,
-                borderRadius: '50%',
-                objectFit: 'cover',
-                display: 'block',
-                transition: `width ${TRANSITION}, height ${TRANSITION}`,
-              }}
+                src={logoImg}
+                alt="Advaita logo"
+                style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', background: 'none' }}
             />
             <span style={{
-              fontFamily: "'Manrope', sans-serif",
-              fontWeight: 800,
-              fontSize: scrolled ? '1rem' : '1.1rem',
+              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontWeight: 500,
+              fontSize: '1.20rem',
               letterSpacing: '-0.02em',
-              color: scrolled ? '#ffffff' : '#111111',
-              transition: `color ${TRANSITION}, font-size ${TRANSITION}`,
+              color: '#111',
+              lineHeight: 1,
             }}>
               ADVAITA INTELLIGENCE
             </span>
           </a>
 
-          {/* Right group: nav links + CTA */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: scrolled ? '32px' : '36px',
-            transition: `gap ${TRANSITION}`,
-          }}>
-            {/* Nav links — white text (over dark panel in default, over glass in scrolled) */}
-            <div className="lp-nav-links" style={{ display: 'flex', gap: scrolled ? '22px' : '28px', transition: `gap ${TRANSITION}` }}>
-              {NAV_ITEMS.map(item => (
-                <NavItem
-                  key={item.label}
-                  item={item}
-                  textColor={scrolled ? 'rgba(255,255,255,0.85)' : '#374151'}
-                 /* onPricing={item.label === 'Pricing' ? onPricing : undefined} */
-                />
-              ))}
-            </div>
+          {/* Desktop nav */}
+          <div className="lp-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            {NAV_DROPDOWNS.map(item => (
+              <div
+                key={item.label}
+                style={{ position: 'relative' }}
+                onMouseEnter={() => !item.href && setOpenDropdown(item.label)}
+                onMouseLeave={() => setOpenDropdown(null)}
+              >
+                <a
+                  href={item.href || '#'}
+                  onClick={(e) => {
+                    if (item.label === 'Pricing' && onPricing) { e.preventDefault(); onPricing() }
+                  }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    padding: '10px 14px',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    color: '#3a3a3a',
+                    textDecoration: 'none',
+                    fontFamily: "'IBM Plex Sans', sans-serif",
+                    borderRadius: 8,
+                  }}
+                >
+                  {item.label}
+                  {!item.href && (
+                    <svg viewBox="0 0 12 12" width="10" height="10" stroke="currentColor" strokeWidth="1.8" fill="none" style={{ opacity: 0.5, marginTop: 2 }}>
+                      <path d="M2.5 4.5l3.5 3.5 3.5-3.5" />
+                    </svg>
+                  )}
+                </a>
+                <AnimatePresence>
+                  {openDropdown === item.label && item.links && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.15 }}
+                      style={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: 0,
+                        paddingTop: 8,
+                        minWidth: 280,
+                      }}
+                    >
+                      <div style={{
+                        background: '#fff',
+                        border: '1px solid var(--adv-border)',
+                        borderRadius: 2,
+                        padding: 8,
+                        boxShadow: '0 14px 40px rgba(17,17,17,0.10)',
+                      }}>
+                        {item.links.map(l => (
+                          <a key={l.label} href="#" style={{
+                            display: 'block',
+                            padding: '10px 12px',
+                            borderRadius: 2,
+                            textDecoration: 'none',
+                            transition: 'background 0.15s',
+                          }}
+                            onMouseEnter={e => e.currentTarget.style.background = '#FAFAF4'}
+                            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                          >
+                            <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111' }}>{l.label}</div>
+                            <div style={{ fontSize: '0.78rem', color: '#777', marginTop: 2 }}>{l.desc}</div>
+                          </a>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
 
-            {/* CTA — orange, sharp radius */}
+          {/* Desktop CTA */}
+          <div className="lp-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <button
+              onClick={onLogin}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#3a3a3a',
+                fontSize: '0.88rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                padding: '9px 14px',
+              }}
+            >
+              Sign in
+            </button> 
             <a
-              className="lp-nav-actions"
               href="#waitlist"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                fontSize: scrolled ? '0.83rem' : '0.85rem',
-                fontWeight: 700,
-                color: '#ffffff',
-                textDecoration: 'none',
-                padding: scrolled ? '9px 20px' : '9px 22px',
+                padding: '10px 18px',
                 background: '#F47B20',
-                borderRadius: 4,
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-                fontFamily: "'Manrope', sans-serif",
-                transition: `background 0.18s, padding ${TRANSITION}, font-size ${TRANSITION}`,
+                color: '#fff',
+                fontSize: '0.87rem',
+                fontWeight: 700,
+                borderRadius: 2,
+                textDecoration: 'none',
+                fontFamily: 'inherit',
+                boxShadow: '0 6px 16px rgba(244,123,32,0.28)',
+                transition: 'transform 0.18s, background 0.18s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#e06b10' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#F47B20' }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#e06b10'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#F47B20'; e.currentTarget.style.transform = 'translateY(0)' }}
             >
-              Early Access
+              Join the Waitlist
             </a>
           </div>
 
-          {/* ── Hamburger — inside pill, hidden on desktop ── */}
+          {/* Mobile hamburger */}
           <button
             className="mobile-menu-btn"
-            onClick={() => setMenuOpen(o => { if (o) setMobileSection(null); return !o })}
+            onClick={() => setMobileOpen(o => !o)}
             aria-label="Toggle menu"
             style={{
               display: 'none',
@@ -155,78 +209,64 @@ export function Navbar({ offsetTop = 0, onLogin, onPricing }) {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              flexShrink: 0,
             }}
           >
-            {[
-              { transform: menuOpen ? 'rotate(45deg) translateY(7px)' : 'none' },
-              { opacity: menuOpen ? 0 : 1 },
-              { transform: menuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none' },
-            ].map((extra, i) => (
-              <span key={i} style={{ width: 22, height: 2, background: scrolled ? '#fff' : '#111111', display: 'block', transition: 'all 0.25s ease', ...extra }} />
+            {[0,1,2].map(i => (
+              <span key={i} style={{
+                width: 22, height: 2, background: '#111', display: 'block',
+                transition: 'all 0.25s ease',
+                transform: mobileOpen && i === 0 ? 'rotate(45deg) translateY(7px)' : mobileOpen && i === 2 ? 'rotate(-45deg) translateY(-7px)' : 'none',
+                opacity: mobileOpen && i === 1 ? 0 : 1,
+              }} />
             ))}
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* ── Mobile menu ── */}
+      {/* Mobile menu */}
       <AnimatePresence>
-        {menuOpen && (
+        {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.22 }}
             style={{
-              position: 'fixed',
-              top: offsetTop + 68,
-              left: 0, right: 0,
+              position: 'sticky',
+              top: 80,
               zIndex: 59,
-              background: 'rgba(14,14,14,0.92)',
-              backdropFilter: 'blur(16px)',
+              background: '#fff',
+              borderBottom: '1px solid rgba(17,17,17,0.08)',
               overflow: 'hidden',
             }}
           >
-            <div className="lp-wrap" style={{ paddingTop: 12, paddingBottom: 24, display: 'flex', flexDirection: 'column', gap: 4 }}>
-              {NAV_ITEMS.map(item => (
-                <div key={item.label}>
-                  <button
-                    style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 600, color: '#fff', fontFamily: 'inherit' }}
-                    onClick={() => setMobileSection(s => s === item.label ? null : item.label)}
-                  >
-                    {item.label}
-                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" width="10" height="10"
-                      style={{ transition: 'transform 0.2s', transform: mobileSection === item.label ? 'rotate(180deg)' : 'none', opacity: 0.4 }}>
-                      <path d="M2 4l4 4 4-4" />
-                    </svg>
-                  </button>
-                  <AnimatePresence>
-                    {mobileSection === item.label && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.18 }}
-                        style={{ overflow: 'hidden', paddingLeft: 12, paddingBottom: 8 }}
-                      >
-                        {item.links.map(l => (
-                          <a key={l.label} href="#"
-                            style={{ display: 'block', padding: '7px 0', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontWeight: 500 }}
-                            onClick={() => setMenuOpen(false)}
-                          >
-                            {l.label}
-                          </a>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
-              <div style={{ paddingTop: 16, marginTop: 8, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                <a href="#waitlist" style={{ display: 'block', textAlign: 'center', padding: '11px 20px', background: '#F47B20', borderRadius: 4, fontSize: '0.875rem', fontWeight: 700, color: '#fff', textDecoration: 'none' }}>
-                  Early Access
+            <div className="lp-wrap" style={{ paddingTop: 16, paddingBottom: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {NAV_DROPDOWNS.map(item => (
+                <a key={item.label}
+                  href={item.href || '#'}
+                  onClick={(e) => {
+                    if (item.label === 'Pricing' && onPricing) { e.preventDefault(); onPricing() }
+                    setMobileOpen(false)
+                  }}
+                  style={{ padding: '12px 4px', fontSize: '0.95rem', fontWeight: 600, color: '#111', textDecoration: 'none', borderBottom: '1px solid rgba(17,17,17,0.05)' }}
+                >
+                  {item.label}
                 </a>
-              </div>
+              ))}
+              <a href="#waitlist" onClick={() => setMobileOpen(false)} style={{
+                marginTop: 12,
+                display: 'block',
+                textAlign: 'center',
+                padding: '12px 18px',
+                background: '#F47B20',
+                color: '#fff',
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                borderRadius: 2,
+                textDecoration: 'none',
+              }}>
+                Join the Waitlist
+              </a>
             </div>
           </motion.div>
         )}

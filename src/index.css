@@ -1,30 +1,105 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Manrope:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 @import "tailwindcss";
 
 /* ─── RESET ───────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+/* Native smooth scroll is disabled when Lenis is active (see App.jsx).
+   Lenis only mounts on the landing page, so we leave CSS smooth for other routes. */
+html:not(.lenis) { scroll-behavior: smooth; }
+html.lenis, html.lenis body { height: auto; }
+html.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
 * { font-family: inherit; }
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
   background: #FAFAF8;
   color: #111111;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 #root { width: 100%; min-height: 100svh; }
-h1,h2,h3,h4,h5,h6 { font-family: 'Manrope', sans-serif; font-weight: 800; }
+h1,h2,h3,h4,h5,h6 { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; }
 ::selection { background: rgba(244,123,32,0.15); color: #111; }
 
 /* ─── LAYOUT CLASSES (explicit CSS, not Tailwind) ─────────────── */
 .lp-wrap {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1024px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.lp-wrap-wide {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* ─── REDESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --adv-bg: #FAFAF4;
+  --adv-surface: #FFFFFF;
+  --adv-ink: #111111;
+  --adv-muted: #6B6B6B;
+  --adv-border: rgba(17,17,17,0.10);
+  --adv-grid: rgba(17,17,17,0.06);
+  --adv-orange: #F47B20;
+  --adv-yellow: #F5D000;
+  --adv-green: #1A7A2E;
+  --adv-lavender: #C9B8F0;
+  --adv-radius: 2px;
+}
+body { background: var(--adv-bg); color: var(--adv-ink); }
+
+/* Square grid background — the hallmark pattern for sections */
+.lp-grid-bg {
+  background-image:
+    linear-gradient(var(--adv-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--adv-grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: -0.5px -0.5px;
+}
+
+/* Sharp-corner card */
+.lp-card {
+  background: var(--adv-surface);
+  border: 1px solid var(--adv-border);
+  border-radius: var(--adv-radius);
+}
+
+/* ─── PAGE FRAME — all landing content lives inside these borders ─ */
+.lp-frame {
+  max-width: 1280px;
+  margin: 0 auto;
+  border-left: 1px solid var(--adv-border);
+  border-right: 1px solid var(--adv-border);
+  background: var(--adv-bg);
+  position: relative;
+  /* overflow must stay visible so position:sticky navbar works */
+}
+
+/* Horizontal section dividers — applied to every direct <section> in main */
+.lp-frame main > section {
+  border-bottom: 1px solid var(--adv-border);
+}
+/* Soft gutter outside the frame so the border is visible */
+.lp-frame-outer {
+  background:
+    repeating-linear-gradient(45deg, rgba(17,17,17,0.015) 0 2px, transparent 2px 8px),
+    var(--adv-bg);
+  min-height: 100vh;
+}
+
+@media (max-width: 1280px) {
+  .lp-frame { border-left: none; border-right: none; }
 }
 .lp-nav-inner {
   display: flex;
