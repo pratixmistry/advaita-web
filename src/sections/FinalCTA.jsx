@@ -46,7 +46,7 @@ export function FinalCTA() {
         <div className="final-cta-card" style={{
           position: 'relative',
           background: 'linear-gradient(135deg, #F47B20 0%, #F5D000 55%, #C9B8F0 100%)',
-          borderRadius: 2,
+          borderRadius: 6,
           border: '1px solid var(--adv-border)',
           padding: '72px 40px',
           textAlign: 'center',
@@ -81,7 +81,7 @@ export function FinalCTA() {
               {count !== null ? `${count} on the waitlist` : 'Early access'}
             </span>
             <h2 style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Apfel Grotezk', sans-serif",
               fontWeight: 800,
               fontSize: 'clamp(2rem, 4.2vw, 3.25rem)',
               lineHeight: 1.08,
@@ -118,7 +118,7 @@ export function FinalCTA() {
                   style={{
                     flex: '1 1 220px',
                     padding: '13px 18px',
-                    borderRadius: 2,
+                    borderRadius: 6,
                     border: '1px solid rgba(17,17,17,0.1)',
                     background: '#fff',
                     fontSize: '0.92rem',
@@ -132,7 +132,7 @@ export function FinalCTA() {
                   disabled={loading}
                   style={{
                     padding: '13px 22px',
-                    borderRadius: 2,
+                    borderRadius: 6,
                     border: 'none',
                     background: '#111',
                     color: '#fff',
@@ -160,7 +160,7 @@ export function FinalCTA() {
                   background: 'rgba(17,17,17,0.88)',
                   color: '#fff',
                   padding: '18px 28px',
-                  borderRadius: 2,
+                  borderRadius: 6,
                   border: '1px solid rgba(255,255,255,0.12)',
                   maxWidth: 440,
                   margin: '0 auto',

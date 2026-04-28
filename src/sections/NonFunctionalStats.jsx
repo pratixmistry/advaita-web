@@ -1,4 +1,6 @@
-/* "Numbers you can count on" — non-functional guarantees from PRD */
+/* "Numbers you can count on" — non-functional guarantees from PRD.
+   Layout: light cream background, colourful pastel stat cards on top,
+   wide highlight card on bottom. */
 
 import { useEffect, useRef, useState } from 'react'
 
@@ -24,7 +26,7 @@ function useInView(threshold = 0.3) {
   return [ref, inView]
 }
 
-/* Count-up: animates 0 → target when `run` turns true. Renders as-is if decimal = false. */
+/* Count-up: animates 0 → target when `run` turns true. */
 function CountUp({ target, run, decimals = 0, duration = 1600 }) {
   const [value, setValue] = useState(0)
 
@@ -34,7 +36,6 @@ function CountUp({ target, run, decimals = 0, duration = 1600 }) {
     let rafId
     const tick = (now) => {
       const t = Math.min(1, (now - start) / duration)
-      // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3)
       setValue(target * eased)
       if (t < 1) rafId = requestAnimationFrame(tick)
@@ -50,161 +51,153 @@ function CountUp({ target, run, decimals = 0, duration = 1600 }) {
 const STATS = [
   {
     prefix: '',
-    target: 99,
+    target: 99.99,
+    decimals: 2,
     suffix: '%',
-    label: 'Uptime & on-time response',
-    desc: 'Production SLA with redundant failover and always-on monitoring.',
-    icon: IconPulse,
+    label: 'Uptime for Advaita services',
+    bg: '#E8E4FB',
+    fg: '#3A2A8C',
+    sub: 'rgba(58,42,140,0.65)',
   },
   {
     prefix: '<',
     target: 30,
     suffix: ' min',
-    label: 'End-to-end latency',
-    desc: 'From event ingestion to AI-generated answer — measured, not promised.',
-    icon: IconBolt,
+    label: 'End-to-end latency to insights',
+    bg: '#DCD7F8',
+    fg: '#2E2178',
+    sub: 'rgba(46,33,120,0.65)',
   },
   {
     prefix: '',
     target: 100,
     suffix: '%',
-    label: 'Data compliance',
-    desc: 'GDPR-ready data handling, region-pinned storage, full audit trails.',
-    icon: IconShield,
+    label: 'GDPR-ready data compliance',
+    bg: '#FBF2A4',
+    fg: '#7A6A12',
+    sub: 'rgba(122,106,18,0.7)',
   },
   {
     prefix: '',
     target: 256,
     suffix: '-bit',
-    label: 'Encrypted end-to-end',
-    desc: 'TLS 1.3 in transit, AES-256 at rest. Your data, always under lock.',
-    icon: IconLock,
+    label: 'TLS 1.3 / AES-256 encryption',
+    bg: '#FFE3CC',
+    fg: '#8C3D14',
+    sub: 'rgba(140,61,20,0.7)',
   },
 ]
 
 export function NonFunctionalStats() {
-  const [ref, inView] = useInView(0.25)
+  const [ref, inView] = useInView(0.2)
 
   return (
     <section
       id="guarantees"
       style={{
-        background: '#1A7A2E',
-        padding: '50px 0',
+        background: '#FAF6EC',
+        padding: '110px 0 120px',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Grid overlay pattern */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
-          `,
-          backgroundSize: '56px 56px',
-          pointerEvents: 'none',
-        }}
-      />
-      {/* Subtle radial highlight */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'radial-gradient(ellipse at 50% 0%, rgba(245,208,0,0.18) 0%, transparent 55%)',
-          pointerEvents: 'none',
-        }}
-      />
-
       <div className="lp-wrap-wide" style={{ position: 'relative', zIndex: 1 }} ref={ref}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto 64px' }}>
-          <span
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '4px 12px',
-              background: 'rgba(255,255,255,0.12)',
-              color: '#fff',
-              border: '1px solid rgba(255,255,255,0.22)',
-              fontSize: '0.68rem',
-              fontWeight: 800,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              borderRadius: 2,
-              marginBottom: 18,
-            }}
-          >
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                background: '#F5D000',
-              }}
-            />
-            By the numbers
-          </span>
+        {/* Header — left aligned, like attached reference */}
+        <div style={{ maxWidth: 720, margin: '0 0 56px' }}>
           <h2
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
-              fontWeight: 800,
+              fontFamily: "'Apfel Grotezk', sans-serif",
+              fontWeight: 700,
               fontSize: 'clamp(2rem, 4.2vw, 3.2rem)',
               lineHeight: 1.08,
               letterSpacing: '-0.028em',
-              color: '#fff',
+              color: '#111',
               margin: '0 0 14px',
             }}
           >
-            Numbers you can{' '}
-            <span style={{ color: '#F5D000' }}>count on</span>.
+            Numbers you can count on.
           </h2>
           <p
             style={{
+              fontFamily: "'Apfel Grotezk', sans-serif",
               fontSize: '1.02rem',
-              color: 'rgba(255,255,255,0.78)',
+              color: 'rgba(17,17,17,0.62)',
               lineHeight: 1.65,
               margin: 0,
+              maxWidth: 560,
             }}
           >
-            Beyond features, Advaita is engineered for the guarantees that matter when you're
-            running analytics for a real business — uptime, speed, compliance, and security.
+            Beyond features, Advaita is engineered for the guarantees that matter
+            when you're running analytics for a real business.
           </p>
         </div>
 
-        {/* Stat grid */}
+        {/* Stat cards row */}
         <div className="nfs-grid">
-          {STATS.map((s, i) => {
-            const Icon = s.icon
-            return (
+          {STATS.map((s, i) => (
+            <div
+              key={s.label}
+              className="nfs-cell"
+              style={{
+                background: s.bg,
+                opacity: inView ? 1 : 0,
+                transform: inView ? 'translateY(0)' : 'translateY(18px)',
+                transition: `opacity 0.7s ease ${i * 110}ms, transform 0.7s ease ${i * 110}ms`,
+              }}
+            >
               <div
-                key={s.label}
-                className="nfs-cell"
-                style={{
-                  opacity: inView ? 1 : 0,
-                  transform: inView ? 'translateY(0)' : 'translateY(18px)',
-                  transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
-                }}
+                className="nfs-number"
+                style={{ color: s.fg }}
               >
-                <div className="nfs-icon" aria-hidden="true">
-                  <Icon />
-                </div>
-                <div className="nfs-number">
-                  <span className="nfs-prefix">{s.prefix}</span>
-                  <CountUp target={s.target} run={inView} />
-                  <span className="nfs-suffix">{s.suffix}</span>
-                </div>
-                <div className="nfs-label">{s.label}</div>
-                <div className="nfs-desc">{s.desc}</div>
+                <span className="nfs-prefix">{s.prefix}</span>
+                <CountUp
+                  target={s.target}
+                  run={inView}
+                  decimals={s.decimals || 0}
+                />
+                <span className="nfs-suffix">{s.suffix}</span>
               </div>
-            )
-          })}
+              <div className="nfs-label" style={{ color: s.sub }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Wide highlight card */}
+        <div
+          className="nfs-wide"
+          style={{
+            background: '#D8EEDC',
+            opacity: inView ? 1 : 0,
+            transform: inView ? 'translateY(0)' : 'translateY(18px)',
+            transition: `opacity 0.7s ease 480ms, transform 0.7s ease 480ms`,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "'Apfel Grotezk', sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+              letterSpacing: '-0.025em',
+              color: '#1A5A24',
+              lineHeight: 1.1,
+              marginBottom: 8,
+            }}
+          >
+            100% safe &amp; secure
+          </div>
+          <div
+            style={{
+              fontFamily: "'Apfel Grotezk', sans-serif",
+              fontSize: '1rem',
+              color: 'rgba(26,90,36,0.78)',
+              lineHeight: 1.55,
+            }}
+          >
+            SOC 2 aligned controls. Region-pinned storage. Full audit trails on
+            every event we ingest.
+          </div>
         </div>
       </div>
 
@@ -212,38 +205,22 @@ export function NonFunctionalStats() {
         .nfs-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          border: 1px solid rgba(255,255,255,0.16);
-          background: rgba(255,255,255,0.04);
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
+          gap: 18px;
+          margin-bottom: 18px;
         }
         .nfs-cell {
-          padding: 32px 28px 30px;
+          padding: 28px 26px 26px;
+          border-radius: 14px;
           display: flex;
           flex-direction: column;
           gap: 10px;
-          border-right: 1px solid rgba(255,255,255,0.12);
+          min-height: 170px;
         }
-        .nfs-cell:last-child { border-right: none; }
-
-        .nfs-icon {
-          width: 38px;
-          height: 38px;
-          border: 1px solid rgba(255,255,255,0.25);
-          background: rgba(255,255,255,0.08);
-          color: #F5D000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 6px;
-        }
-
         .nfs-number {
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-weight: 800;
-          font-size: clamp(2.4rem, 4.4vw, 3.4rem);
-          color: #fff;
-          letter-spacing: -0.035em;
+          font-family: 'Apfel Grotezk', sans-serif;
+          font-weight: 700;
+          font-size: clamp(2rem, 3.6vw, 2.6rem);
+          letter-spacing: -0.03em;
           line-height: 1;
           display: flex;
           align-items: baseline;
@@ -251,74 +228,31 @@ export function NonFunctionalStats() {
         }
         .nfs-prefix,
         .nfs-suffix {
-          font-size: 0.55em;
+          font-size: 0.6em;
           font-weight: 700;
-          color: #F5D000;
           letter-spacing: -0.02em;
+          opacity: 0.85;
         }
         .nfs-prefix { margin-right: 4px; }
-
         .nfs-label {
-          font-family: 'IBM Plex Sans', sans-serif;
-          font-weight: 700;
-          font-size: 0.98rem;
-          color: #fff;
-          letter-spacing: -0.01em;
-          margin-top: 4px;
+          font-family: 'Apfel Grotezk', sans-serif;
+          font-weight: 500;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          margin-top: 6px;
         }
-        .nfs-desc {
-          font-size: 0.85rem;
-          color: rgba(255,255,255,0.72);
-          line-height: 1.55;
+        .nfs-wide {
+          padding: 30px 32px;
+          border-radius: 14px;
         }
 
         @media (max-width: 980px) {
           .nfs-grid { grid-template-columns: repeat(2, 1fr); }
-          .nfs-cell:nth-child(odd)  { border-right: 1px solid rgba(255,255,255,0.12); }
-          .nfs-cell:nth-child(even) { border-right: none; }
-          .nfs-cell:nth-child(1),
-          .nfs-cell:nth-child(2) {
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-          }
         }
-        @media (max-width: 560px) {
+        @media (max-width: 520px) {
           .nfs-grid { grid-template-columns: 1fr; }
-          .nfs-cell { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.12); }
-          .nfs-cell:last-child { border-bottom: none; }
         }
       `}</style>
     </section>
-  )
-}
-
-/* ── Icons ────────────────────────────────────────────── */
-function IconPulse() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-    </svg>
-  )
-}
-function IconBolt() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-    </svg>
-  )
-}
-function IconShield() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  )
-}
-function IconLock() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="11" width="18" height="11" rx="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </svg>
   )
 }

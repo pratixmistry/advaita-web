@@ -55,7 +55,7 @@ function BillingToggle({ cycle, onChange }) {
       margin: '0 auto 40px',
       border: '1px solid var(--adv-border)',
       background: '#fff',
-      borderRadius: 2,
+      borderRadius: 6,
       overflow: 'hidden',
     }}>
       {CYCLES.map((c) => (
@@ -87,7 +87,7 @@ function BillingToggle({ cycle, onChange }) {
               color: '#fff',
               fontSize: '0.58rem',
               padding: '2px 6px',
-              borderRadius: 2,
+              borderRadius: 6,
               fontWeight: 700,
             }}>{SAVINGS[c]}</span>
           )}
@@ -116,7 +116,7 @@ function PricingCard({ tier, cycle, featured }) {
       background: featured ? '#111' : '#fff',
       color: featured ? '#fff' : '#111',
       border: featured ? '1px solid #111' : '1px solid var(--adv-border)',
-      borderRadius: 2,
+      borderRadius: 6,
       padding: '28px 24px',
       display: 'flex',
       flexDirection: 'column',
@@ -130,7 +130,7 @@ function PricingCard({ tier, cycle, featured }) {
           display: 'inline-block',
           background: '#F47B20',
           color: '#fff',
-          borderRadius: 2,
+          borderRadius: 6,
           padding: '3px 10px',
           fontSize: '0.6rem',
           fontWeight: 800,
@@ -151,7 +151,7 @@ function PricingCard({ tier, cycle, featured }) {
       </div>
 
       <div style={{
-        fontFamily: "'IBM Plex Sans', sans-serif",
+        fontFamily: "'Apfel Grotezk', sans-serif",
         fontWeight: 800,
         fontSize: '2.4rem',
         letterSpacing: '-0.03em',
@@ -174,7 +174,7 @@ function PricingCard({ tier, cycle, featured }) {
           display: 'block',
           textAlign: 'center',
           padding: '11px 0',
-          borderRadius: 2,
+          borderRadius: 6,
           fontWeight: 700,
           fontSize: '0.88rem',
           textDecoration: 'none',
@@ -330,7 +330,7 @@ function EnterpriseHostingCard() {
       }}>
         <div>
           <div style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: "'Apfel Grotezk', sans-serif",
             fontWeight: 800,
             fontSize: '0.78rem',
             letterSpacing: '0.18em',
@@ -369,7 +369,7 @@ function EnterpriseHostingCard() {
             fontWeight: 600,
             fontSize: '0.9rem',
             textDecoration: 'none',
-            borderRadius: 2,
+            borderRadius: 6,
             fontFamily: 'inherit',
             whiteSpace: 'nowrap',
             transition: 'opacity 0.15s, transform 0.15s',
@@ -426,13 +426,13 @@ export function PricingSection() {
             fontWeight: 800,
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
-            borderRadius: 2,
+            borderRadius: 6,
             marginBottom: 18,
           }}>
             Pricing
           </span>
           <h2 style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: "'Apfel Grotezk', sans-serif",
             fontWeight: 800,
             fontSize: 'clamp(2rem, 3.8vw, 2.85rem)',
             color: '#111',
@@ -442,7 +442,7 @@ export function PricingSection() {
             Simple, transparent pricing.
           </h2>
           <p style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: "'Apfel Grotezk', sans-serif",
             fontSize: '1rem',
             color: '#6b6b6b',
             margin: '0 0 28px',

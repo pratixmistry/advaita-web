@@ -1,80 +1,93 @@
-import { useEffect } from 'react'
-import Lenis from 'lenis'
+import { Suspense, lazy, useEffect } from 'react'
 import { AnnouncementBanner } from './components/AnnouncementBanner.jsx'
 import { InvestmentBanner } from './components/InvestmentBanner.jsx'
 import { Navbar } from './components/Navbar.jsx'
 import { Hero } from './sections/Hero.jsx'
-import { ProblemStatement } from './sections/ProblemStatement.jsx'
-import { CapabilitiesBento } from './sections/CapabilitiesBento.jsx'
-import { NonFunctionalStats } from './sections/NonFunctionalStats.jsx'
-import { IntegrationsSection } from './sections/IntegrationsSection.jsx'
-import { HowItWorks } from './sections/HowItWorks.jsx'
-import { PricingSection } from './sections/PricingSection.jsx'
-import { FAQ } from './sections/FAQ.jsx'
-import { FinalCTA } from './sections/FinalCTA.jsx'
-import { Footer } from './sections/Footer.jsx'
 
-export default function App({ onLogin, onPricing }) {
+/* Below-the-fold sections lazy-load on demand so the initial render
+   only ships Hero + chrome. Each section is a separate JS chunk and
+   begins fetching the moment React schedules its render. */
+const ProblemStatement    = lazy(() => import('./sections/ProblemStatement.jsx').then(m => ({ default: m.ProblemStatement })))
+const CapabilitiesBento   = lazy(() => import('./sections/CapabilitiesBento.jsx').then(m => ({ default: m.CapabilitiesBento })))
+const HowItWorks          = lazy(() => import('./sections/HowItWorks.jsx').then(m => ({ default: m.HowItWorks })))
+const NonFunctionalStats  = lazy(() => import('./sections/NonFunctionalStats.jsx').then(m => ({ default: m.NonFunctionalStats })))
+const IntegrationsSection = lazy(() => import('./sections/IntegrationsSection.jsx').then(m => ({ default: m.IntegrationsSection })))
+const PricingSection      = lazy(() => import('./sections/PricingSection.jsx').then(m => ({ default: m.PricingSection })))
+const FAQ                 = lazy(() => import('./sections/FAQ.jsx').then(m => ({ default: m.FAQ })))
+const FinalCTA            = lazy(() => import('./sections/FinalCTA.jsx').then(m => ({ default: m.FinalCTA })))
+const Footer              = lazy(() => import('./sections/Footer.jsx').then(m => ({ default: m.Footer })))
+
+/* Lenis is only needed for the smooth-scroll experience and is fairly
+   heavy (~12kb gzip). Pull it in dynamically after first paint so it
+   never blocks the critical path. */
+function useSmoothScroll() {
   useEffect(() => {
-    // Honor the user's OS-level reduced-motion preference.
-    const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
     const scrollToHash = (hash) => {
       if (!hash || hash === '#') return false
-      const id = hash.slice(1)
-      const el = document.getElementById(id)
+      const el = document.getElementById(hash.slice(1))
       if (!el) return false
       if (prefersReduced || !window.__lenis) {
         el.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' })
       } else {
         window.__lenis.scrollTo(el, { offset: 0, duration: 1.2 })
       }
-      // Update URL hash without causing a second jump
-      if (window.history.replaceState) {
-        window.history.replaceState(null, '', hash)
-      }
+      if (window.history.replaceState) window.history.replaceState(null, '', hash)
       return true
     }
 
-    // Global click delegate: intercept all same-page hash links so they reliably scroll.
     const handleAnchorClick = (e) => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
       const anchor = e.target.closest('a[href]')
       if (!anchor) return
       const href = anchor.getAttribute('href')
       if (!href || !href.startsWith('#') || href === '#') return
-      if (scrollToHash(href)) {
-        e.preventDefault()
-      }
+      if (scrollToHash(href)) e.preventDefault()
     }
     document.addEventListener('click', handleAnchorClick)
 
     let lenis
     let rafId
-    if (!prefersReduced) {
-      lenis = new Lenis({
-        duration: 1.6,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        wheelMultiplier: 0.75,
-        touchMultiplier: 1.2,
-      })
-      window.__lenis = lenis
+    let cancelled = false
 
-      const raf = (time) => {
-        lenis.raf(time)
+    if (!prefersReduced) {
+      // Defer Lenis import + init until the browser is idle so it
+      // never blocks the first meaningful paint.
+      const init = async () => {
+        const { default: Lenis } = await import('lenis')
+        if (cancelled) return
+        lenis = new Lenis({
+          duration: 1.6,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          wheelMultiplier: 0.75,
+          touchMultiplier: 1.2,
+        })
+        window.__lenis = lenis
+        const raf = (time) => {
+          lenis.raf(time)
+          rafId = requestAnimationFrame(raf)
+        }
         rafId = requestAnimationFrame(raf)
       }
-      rafId = requestAnimationFrame(raf)
+      const idleHandle = window.requestIdleCallback
+        ? window.requestIdleCallback(init, { timeout: 800 })
+        : setTimeout(init, 200)
+
+      // Cleanup the scheduled init if the component unmounts first.
+      // (We can't cancel both schedulers identically; both are safe to leave.)
+      void idleHandle
     }
 
-    // Handle initial hash on load (e.g. visiting /#waitlist directly)
     if (window.location.hash) {
-      // Wait for layout before scrolling
       setTimeout(() => scrollToHash(window.location.hash), 120)
     }
 
     return () => {
+      cancelled = true
       document.removeEventListener('click', handleAnchorClick)
       if (rafId) cancelAnimationFrame(rafId)
       if (lenis) {
@@ -83,51 +96,44 @@ export default function App({ onLogin, onPricing }) {
       }
     }
   }, [])
+}
+
+/* Tiny placeholder that reserves vertical space so layout shift on
+   chunk-load is minimal. */
+function SectionFallback() {
+  return <div aria-hidden="true" style={{ minHeight: 240 }} />
+}
+
+export default function App({ onPricing, onSdks, onDocs }) {
+  useSmoothScroll()
 
   return (
     <div className="lp-frame-outer">
+      <AnnouncementBanner />
+      <Navbar onPricing={onPricing} onSdks={onSdks} onDocs={onDocs} />
+
       <div className="lp-frame">
-        {/* 1. Top announcement bar */}
-        <AnnouncementBanner />
-
-        {/* 2. Sticky light navbar */}
-        <Navbar onLogin={onLogin} onPricing={onPricing} />
-
         <main>
-          {/* 3. Hero — animated-fill tabs + dashboard preview */}
           <Hero />
 
-          {/* 3b. Problem statement — dashboards bottleneck vs DS/UR bots */}
-          <ProblemStatement />
-
-          {/* 3c. Investment announcement */}
+          {/* Each below-the-fold section has its own Suspense boundary so
+              individual chunks render the moment they're ready, instead of
+              blocking on the slowest one. */}
+          <Suspense fallback={<SectionFallback />}><ProblemStatement /></Suspense>
           <InvestmentBanner />
-
-          {/* 4. Capabilities bento (Saalyn-style) */}
-          <CapabilitiesBento />
-
-          {/* 5. How it works */}
-          <HowItWorks />
-
-          {/* 6. Non-functional guarantees — uptime, latency, compliance, security */}
-          <NonFunctionalStats />
-
-          {/* 7. Integrations grid (Coming Soon) */}
-          <IntegrationsSection />
-
-          {/* 8. Pricing */}
-          <PricingSection />
-
-          {/* 9. FAQ */}
-          <FAQ />
-
-          {/* 10. Final CTA */}
-          <FinalCTA />
+          <Suspense fallback={<SectionFallback />}><CapabilitiesBento /></Suspense>
+          <Suspense fallback={<SectionFallback />}><HowItWorks /></Suspense>
+          <Suspense fallback={<SectionFallback />}><NonFunctionalStats /></Suspense>
+          <Suspense fallback={<SectionFallback />}><IntegrationsSection /></Suspense>
+          <Suspense fallback={<SectionFallback />}><PricingSection /></Suspense>
+          <Suspense fallback={<SectionFallback />}><FAQ /></Suspense>
+          <Suspense fallback={<SectionFallback />}><FinalCTA /></Suspense>
         </main>
       </div>
 
-      {/* 11. Footer — outside lp-frame so bg spans full viewport width */}
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   )
 }

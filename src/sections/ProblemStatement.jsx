@@ -191,7 +191,7 @@ export function ProblemStatement() {
               fontWeight: 800,
               letterSpacing: '0.14em',
               textTransform: 'uppercase',
-              borderRadius: 2,
+              borderRadius: 6,
               marginBottom: 18,
             }}
           >
@@ -199,7 +199,7 @@ export function ProblemStatement() {
           </span>
           <h2
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Apfel Grotezk', sans-serif",
               fontWeight: 800,
               fontSize: 'clamp(2rem, 4.2vw, 3.2rem)',
               lineHeight: 1.08,
@@ -321,7 +321,7 @@ export function ProblemStatement() {
         .ps-col {
           background: #fff;
           border: 1px solid var(--adv-border);
-          border-radius: 2px;
+          border-radius: 6px;
           padding: 34px 32px 28px;
           display: flex;
           flex-direction: column;
@@ -346,7 +346,7 @@ export function ProblemStatement() {
 
         .ps-col-head { display: flex; flex-direction: column; gap: 10px; }
         .ps-col-title {
-          font-family: 'IBM Plex Sans', sans-serif;
+          font-family: 'Apfel Grotezk', sans-serif;
           font-weight: 700;
           font-size: 1.35rem;
           color: #111;
@@ -369,7 +369,7 @@ export function ProblemStatement() {
           font-weight: 800;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          border-radius: 2px;
+          border-radius: 6px;
         }
         .ps-pill-old {
           background: rgba(17,17,17,0.06);
@@ -431,7 +431,7 @@ export function ProblemStatement() {
           border: 1px solid var(--adv-border);
           background: #FAFAF4;
           padding: 14px;
-          border-radius: 2px;
+          border-radius: 6px;
           min-height: 220px;
         }
         .ps-viz-old { overflow: hidden; }
@@ -472,7 +472,7 @@ export function ProblemStatement() {
         }
         .ps-mini-spark { width: 100%; height: 22px; }
         .ps-mini-val {
-          font-family: 'IBM Plex Sans', sans-serif;
+          font-family: 'Apfel Grotezk', sans-serif;
           font-weight: 700;
           font-size: 0.82rem;
           color: #111;
@@ -562,7 +562,7 @@ export function ProblemStatement() {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: 'IBM Plex Sans', sans-serif;
+          font-family: 'Apfel Grotezk', sans-serif;
           font-size: 0.6rem;
           font-weight: 800;
           color: #fff;
@@ -583,7 +583,7 @@ export function ProblemStatement() {
           color: #111;
           border: 1px solid var(--adv-border);
           max-width: 78%;
-          border-radius: 2px;
+          border-radius: 6px;
         }
         .ps-bubble-user {
           background: #111;

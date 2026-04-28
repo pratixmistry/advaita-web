@@ -105,8 +105,8 @@ function AnalyticsVisual() {
       {/* Area chart */}
       <div style={{ width: '100%', background: 'rgba(255,255,255,0.03)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-          <span style={{ fontSize: 10, color: 'rgba(240,235,224,0.5)', fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Event Volume · 12h</span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: '#F47B20', fontFamily: "'IBM Plex Sans', sans-serif" }}>↑ 24.3%</span>
+          <span style={{ fontSize: 10, color: 'rgba(240,235,224,0.5)', fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Event Volume · 12h</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: '#F47B20', fontFamily: "'Apfel Grotezk', sans-serif" }}>↑ 24.3%</span>
         </div>
         <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow: 'visible', display: 'block' }}>
           <defs>
@@ -158,8 +158,8 @@ function AnalyticsVisual() {
             border: `1px solid ${color}33`,
             borderRadius: 12, padding: '10px 12px', textAlign: 'center',
           }}>
-            <div style={{ fontSize: 9, color: 'rgba(240,235,224,0.4)', fontFamily: "'IBM Plex Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>{label}</div>
-            <div style={{ fontSize: 15, fontWeight: 700, color, fontFamily: "'IBM Plex Sans', sans-serif" }}>{value}</div>
+            <div style={{ fontSize: 9, color: 'rgba(240,235,224,0.4)', fontFamily: "'Apfel Grotezk', sans-serif", textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>{label}</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color, fontFamily: "'Apfel Grotezk', sans-serif" }}>{value}</div>
           </div>
         ))}
       </div>
@@ -197,14 +197,14 @@ function LeftPanel() {
       <div style={{ position: 'relative', zIndex: 1, padding: '32px 32px 0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Logo size={36} />
-          <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: '#F0EBE0', letterSpacing: '-0.01em' }}>Advaita</span>
+          <span style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: '#F0EBE0', letterSpacing: '-0.01em' }}>Advaita</span>
         </div>
         <div style={{ marginTop: 20, paddingLeft: 2 }}>
-          <p style={{ fontFamily: "'Space Grotesk', serif", fontSize: '1.45rem', fontWeight: 700, color: '#F0EBE0', lineHeight: 1.35, margin: 0 }}>
+          <p style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontSize: '1.45rem', fontWeight: 700, color: '#F0EBE0', lineHeight: 1.35, margin: 0 }}>
             Every click.<br />Every user.<br />
             <span style={{ color: '#F47B20', fontStyle: 'italic' }}>Understood.</span>
           </p>
-          <p style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: '0.8rem', color: 'rgba(240,235,224,0.45)', marginTop: 10, lineHeight: 1.6, fontWeight: 300 }}>
+          <p style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontSize: '0.8rem', color: 'rgba(240,235,224,0.45)', marginTop: 10, lineHeight: 1.6, fontWeight: 300 }}>
             AI-powered analytics that turns raw<br />events into actionable insight.
           </p>
         </div>
@@ -224,8 +224,8 @@ function LeftPanel() {
             ))}
           </div>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: '#F0EBE0', fontFamily: "'IBM Plex Sans', sans-serif" }}>1.4M+ engineers tracking</div>
-            <div style={{ fontSize: 10, color: 'rgba(240,235,224,0.4)', fontFamily: "'IBM Plex Sans', sans-serif" }}>Join the waitlist today</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: '#F0EBE0', fontFamily: "'Apfel Grotezk', sans-serif" }}>1.4M+ engineers tracking</div>
+            <div style={{ fontSize: 10, color: 'rgba(240,235,224,0.4)', fontFamily: "'Apfel Grotezk', sans-serif" }}>Join the waitlist today</div>
           </div>
         </div>
       </div>
@@ -241,7 +241,7 @@ function Field({ label, type = 'text', placeholder, value, onChange, autoComplet
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <label style={{ fontSize: '0.78rem', fontWeight: 600, color: '#475569', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.02em' }}>
+      <label style={{ fontSize: '0.78rem', fontWeight: 600, color: '#475569', fontFamily: "'Apfel Grotezk', sans-serif", letterSpacing: '0.02em' }}>
         {label}
       </label>
       <div style={{ position: 'relative' }}>
@@ -256,7 +256,7 @@ function Field({ label, type = 'text', placeholder, value, onChange, autoComplet
           style={{
             width: '100%', padding: '13px 16px',
             paddingRight: isPass ? 48 : 16,
-            fontSize: '0.9rem', fontFamily: "'IBM Plex Sans', sans-serif",
+            fontSize: '0.9rem', fontFamily: "'Apfel Grotezk', sans-serif",
             background: focused ? '#fff' : '#F8FAFC',
             border: `1.5px solid ${focused ? '#F47B20' : 'rgba(0,0,0,0.1)'}`,
             borderRadius: 12, outline: 'none', color: '#0F172A',
@@ -304,7 +304,7 @@ export default function AuthPage({ onBack }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'linear-gradient(135deg, #0A0F1E 0%, #111827 50%, #0A0F1E 100%)',
       padding: '20px',
-      fontFamily: "'IBM Plex Sans', sans-serif",
+      fontFamily: "'Apfel Grotezk', sans-serif",
     }}>
       {/* Ambient bg */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none' }}>
@@ -379,7 +379,7 @@ export default function AuthPage({ onBack }) {
                 exit={{ opacity: 0, x: -12 }}
                 transition={{ duration: 0.22 }}
               >
-                <h1 style={{ fontFamily: "'Space Grotesk', serif", fontWeight: 700, fontSize: '2rem', color: '#0F172A', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
+                <h1 style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '2rem', color: '#0F172A', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
                   {isLogin ? 'Welcome back.' : 'Get started free.'}
                 </h1>
                 <p style={{ fontSize: '0.875rem', color: '#94A3B8', margin: '0 0 28px', fontWeight: 400 }}>

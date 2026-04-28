@@ -138,7 +138,7 @@ function FaqItem({ q, a }) {
           border: 'none',
           cursor: 'pointer',
           textAlign: 'left',
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: "'Apfel Grotezk', sans-serif",
         }}
       >
         <span style={{ fontSize: '0.925rem', fontWeight: 600, color: '#F0EBE0', lineHeight: 1.4 }}>{q}</span>
@@ -147,7 +147,7 @@ function FaqItem({ q, a }) {
         </svg>
       </button>
       {open && (
-        <p style={{ fontSize: '0.875rem', color: 'rgba(240,235,224,0.55)', lineHeight: 1.65, margin: '0 0 20px', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+        <p style={{ fontSize: '0.875rem', color: 'rgba(240,235,224,0.55)', lineHeight: 1.65, margin: '0 0 20px', fontFamily: "'Apfel Grotezk', sans-serif" }}>
           {a}
         </p>
       )}
@@ -173,7 +173,7 @@ export default function Pricing({ onBack }) {
       minHeight: '100vh',
       background: '#0E0E0E',
       color: '#F0EBE0',
-      fontFamily: "'IBM Plex Sans', sans-serif",
+      fontFamily: "'Apfel Grotezk', sans-serif",
     }}>
 
       {/* ── Navbar ─────────────────────────────────────────────── */}
@@ -196,7 +196,7 @@ export default function Pricing({ onBack }) {
         }}>
           <a href="#" onClick={e => { e.preventDefault(); onBack && onBack() }} style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
             <img src={logoImg} alt="Advaita logo" style={{ width: 36, height: 36, borderRadius: '50%', mixBlendMode: 'lighten', objectFit: 'cover' }} />
-            <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: '#F0EBE0', letterSpacing: '0.02em' }}>ADVAITA</span>
+            <span style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: '#F0EBE0', letterSpacing: '0.02em' }}>ADVAITA</span>
           </a>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -227,13 +227,13 @@ export default function Pricing({ onBack }) {
           borderRadius: 999, padding: '4px 16px', marginBottom: 24,
         }}>
           <span style={{ color: '#F47B20', fontSize: '0.85rem', lineHeight: 1 }}>★</span>
-          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#F47B20', letterSpacing: '0.09em', textTransform: 'uppercase', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#F47B20', letterSpacing: '0.09em', textTransform: 'uppercase', fontFamily: "'Apfel Grotezk', sans-serif" }}>
             ~10X LESS THAN AMPLITUDE &amp; MIXPANEL
           </span>
         </div>
 
         <h1 style={{
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: "'Apfel Grotezk', sans-serif",
           fontWeight: 900,
           fontSize: 'clamp(2.4rem, 5vw, 3.6rem)',
           color: '#F0EBE0',
@@ -251,7 +251,7 @@ export default function Pricing({ onBack }) {
           maxWidth: 480,
           margin: '0 0',
           lineHeight: 1.7,
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: "'Apfel Grotezk', sans-serif",
         }}>
           Full-stack analytics with AI insights and data hosting included.
           No per-event surcharges, no seat taxes, no surprises.
@@ -286,7 +286,7 @@ export default function Pricing({ onBack }) {
                 color: 'rgba(240,235,224,0.35)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: "'Apfel Grotezk', sans-serif",
               }}>
                 Billing period
               </span>
@@ -316,7 +316,7 @@ export default function Pricing({ onBack }) {
                     borderRadius: 999,
                     letterSpacing: '0.07em',
                     textTransform: 'uppercase',
-                    fontFamily: "'IBM Plex Sans', sans-serif",
+                    fontFamily: "'Apfel Grotezk', sans-serif",
                     marginBottom: 10,
                   }}>
                     {plan.badge}
@@ -324,7 +324,7 @@ export default function Pricing({ onBack }) {
                 )}
 
                 <div style={{
-                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  fontFamily: "'Apfel Grotezk', sans-serif",
                   fontWeight: 700,
                   fontSize: '1.3rem',
                   color: plan.highlight ? '#F47B20' : '#F0EBE0',
@@ -336,7 +336,7 @@ export default function Pricing({ onBack }) {
                 <div style={{
                   fontSize: '0.8rem',
                   color: 'rgba(240,235,224,0.45)',
-                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  fontFamily: "'Apfel Grotezk', sans-serif",
                   lineHeight: 1.5,
                 }}>
                   {plan.tagline}
@@ -397,7 +397,7 @@ export default function Pricing({ onBack }) {
                       fontSize: '0.875rem',
                       fontWeight: cycle === c.key ? 700 : 400,
                       color: cycle === c.key ? '#F0EBE0' : 'rgba(240,235,224,0.5)',
-                      fontFamily: "'IBM Plex Sans', sans-serif",
+                      fontFamily: "'Apfel Grotezk', sans-serif",
                       transition: 'color 0.18s',
                     }}>
                       {c.label}
@@ -411,7 +411,7 @@ export default function Pricing({ onBack }) {
                         padding: '1px 7px',
                         borderRadius: 999,
                         letterSpacing: '0.05em',
-                        fontFamily: "'IBM Plex Sans', sans-serif",
+                        fontFamily: "'Apfel Grotezk', sans-serif",
                       }}>
                         {c.savingsLabel}
                       </span>
@@ -435,7 +435,7 @@ export default function Pricing({ onBack }) {
                 >
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 4 }}>
                     <span style={{
-                      fontFamily: "'IBM Plex Sans', sans-serif",
+                      fontFamily: "'Apfel Grotezk', sans-serif",
                       fontWeight: 900,
                       fontSize: price.amount === 0 || price.amount === null ? '2rem' : '2.2rem',
                       color: '#F0EBE0',
@@ -445,14 +445,14 @@ export default function Pricing({ onBack }) {
                       {formatPrice(price.amount)}
                     </span>
                     {price.amount !== null && price.amount > 0 && (
-                      <span style={{ fontSize: '0.8rem', color: 'rgba(240,235,224,0.4)', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+                      <span style={{ fontSize: '0.8rem', color: 'rgba(240,235,224,0.4)', fontFamily: "'Apfel Grotezk', sans-serif" }}>
                         / mo
                       </span>
                     )}
                   </div>
 
                   {price.billing ? (
-                    <div style={{ fontSize: '0.73rem', color: 'rgba(240,235,224,0.35)', fontFamily: "'IBM Plex Sans', sans-serif", marginBottom: 16, minHeight: 18 }}>
+                    <div style={{ fontSize: '0.73rem', color: 'rgba(240,235,224,0.35)', fontFamily: "'Apfel Grotezk', sans-serif", marginBottom: 16, minHeight: 18 }}>
                       {price.billing}
                     </div>
                   ) : (
@@ -470,7 +470,7 @@ export default function Pricing({ onBack }) {
                       color: plan.ctaStyle === 'primary' ? '#fff' : '#F0EBE0',
                       fontSize: '0.85rem',
                       fontWeight: 700,
-                      fontFamily: "'IBM Plex Sans', sans-serif",
+                      fontFamily: "'Apfel Grotezk', sans-serif",
                       cursor: 'pointer',
                       letterSpacing: '0.01em',
                       transition: 'background 0.18s, box-shadow 0.15s',
@@ -533,7 +533,7 @@ export default function Pricing({ onBack }) {
                           fontSize: '0.83rem',
                           color: 'rgba(240,235,224,0.65)',
                           lineHeight: 1.5,
-                          fontFamily: "'IBM Plex Sans', sans-serif",
+                          fontFamily: "'Apfel Grotezk', sans-serif",
                         }}>
                           {plan.features[fi]}
                         </span>
@@ -552,10 +552,10 @@ export default function Pricing({ onBack }) {
       {/* ── Included in all plans ──────────────────────────────── */}
       <section style={{ background: '#161616', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '56px 28px', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: '1.6rem', color: '#F0EBE0', marginBottom: 8 }}>
+          <h2 style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '1.6rem', color: '#F0EBE0', marginBottom: 8 }}>
             Included in every plan
           </h2>
-          <p style={{ fontSize: '0.875rem', color: 'rgba(240,235,224,0.45)', marginBottom: 36, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+          <p style={{ fontSize: '0.875rem', color: 'rgba(240,235,224,0.45)', marginBottom: 36, fontFamily: "'Apfel Grotezk', sans-serif" }}>
             No add-ons, no gotchas — these come standard.
           </p>
 
@@ -569,8 +569,8 @@ export default function Pricing({ onBack }) {
             ].map(item => (
               <div key={item.title} style={{ background: '#0E0E0E', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: '22px 20px', textAlign: 'left' }}>
                 <div style={{ fontSize: '1.4rem', marginBottom: 10 }}>{item.icon}</div>
-                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#F0EBE0', marginBottom: 5, fontFamily: "'IBM Plex Sans', sans-serif" }}>{item.title}</div>
-                <div style={{ fontSize: '0.8rem', color: 'rgba(240,235,224,0.45)', lineHeight: 1.5, fontFamily: "'IBM Plex Sans', sans-serif" }}>{item.desc}</div>
+                <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#F0EBE0', marginBottom: 5, fontFamily: "'Apfel Grotezk', sans-serif" }}>{item.title}</div>
+                <div style={{ fontSize: '0.8rem', color: 'rgba(240,235,224,0.45)', lineHeight: 1.5, fontFamily: "'Apfel Grotezk', sans-serif" }}>{item.desc}</div>
               </div>
             ))}
           </div>
@@ -579,10 +579,10 @@ export default function Pricing({ onBack }) {
 
       {/* ── FAQ ────────────────────────────────────────────────── */}
       <section style={{ maxWidth: 720, margin: '0 auto', padding: '72px 28px 80px' }}>
-        <h2 style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: '1.75rem', color: '#F0EBE0', marginBottom: 8, textAlign: 'center' }}>
+        <h2 style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '1.75rem', color: '#F0EBE0', marginBottom: 8, textAlign: 'center' }}>
           Frequently asked questions
         </h2>
-        <p style={{ fontSize: '0.875rem', color: 'rgba(240,235,224,0.45)', textAlign: 'center', marginBottom: 40, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+        <p style={{ fontSize: '0.875rem', color: 'rgba(240,235,224,0.45)', textAlign: 'center', marginBottom: 40, fontFamily: "'Apfel Grotezk', sans-serif" }}>
           Still have questions?{' '}
           <a href="#contact" style={{ color: '#F47B20', textDecoration: 'none', fontWeight: 600 }}>Talk to us</a>
         </p>
@@ -597,22 +597,22 @@ export default function Pricing({ onBack }) {
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
             <img src={logoImg} alt="Advaita" style={{ width: 52, height: 52, borderRadius: '50%', mixBlendMode: 'lighten', objectFit: 'cover' }} />
           </div>
-          <h2 style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 900, fontSize: 'clamp(1.8rem, 4vw, 2.4rem)', color: '#F0EBE0', margin: '0 0 14px', lineHeight: 1.2 }}>
+          <h2 style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 900, fontSize: 'clamp(1.8rem, 4vw, 2.4rem)', color: '#F0EBE0', margin: '0 0 14px', lineHeight: 1.2 }}>
             Start tracking in under 5 minutes
           </h2>
-          <p style={{ fontSize: '0.975rem', color: 'rgba(240,235,224,0.5)', marginBottom: 32, lineHeight: 1.6, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+          <p style={{ fontSize: '0.975rem', color: 'rgba(240,235,224,0.5)', marginBottom: 32, lineHeight: 1.6, fontFamily: "'Apfel Grotezk', sans-serif" }}>
             Three lines of code. Full visibility. Backed by iHub.
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="#waitlist" onClick={() => onBack && onBack()}
-              style={{ padding: '13px 28px', background: '#F47B20', color: '#fff', borderRadius: 8, fontSize: '0.95rem', fontWeight: 700, textDecoration: 'none', fontFamily: "'IBM Plex Sans', sans-serif", letterSpacing: '0.02em', transition: 'background 0.15s, box-shadow 0.15s' }}
+              style={{ padding: '13px 28px', background: '#F47B20', color: '#fff', borderRadius: 8, fontSize: '0.95rem', fontWeight: 700, textDecoration: 'none', fontFamily: "'Apfel Grotezk', sans-serif", letterSpacing: '0.02em', transition: 'background 0.15s, box-shadow 0.15s' }}
               onMouseEnter={e => { e.currentTarget.style.background = '#e0701c'; e.currentTarget.style.boxShadow = '0 4px 24px rgba(244,123,32,0.4)' }}
               onMouseLeave={e => { e.currentTarget.style.background = '#F47B20'; e.currentTarget.style.boxShadow = 'none' }}
             >
               Join the waitlist →
             </a>
             <a href="#contact"
-              style={{ padding: '13px 28px', background: 'transparent', color: '#F0EBE0', border: '1.5px solid rgba(255,255,255,0.14)', borderRadius: 8, fontSize: '0.95rem', fontWeight: 600, textDecoration: 'none', fontFamily: "'IBM Plex Sans', sans-serif", transition: 'border-color 0.15s' }}
+              style={{ padding: '13px 28px', background: 'transparent', color: '#F0EBE0', border: '1.5px solid rgba(255,255,255,0.14)', borderRadius: 8, fontSize: '0.95rem', fontWeight: 600, textDecoration: 'none', fontFamily: "'Apfel Grotezk', sans-serif", transition: 'border-color 0.15s' }}
               onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}
               onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)'}
             >
@@ -624,7 +624,7 @@ export default function Pricing({ onBack }) {
 
       {/* ── Footer ─────────────────────────────────────────────── */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '24px 28px', textAlign: 'center' }}>
-        <p style={{ fontSize: '0.78rem', color: 'rgba(240,235,224,0.3)', margin: 0, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+        <p style={{ fontSize: '0.78rem', color: 'rgba(240,235,224,0.3)', margin: 0, fontFamily: "'Apfel Grotezk', sans-serif" }}>
           © {new Date().getFullYear()} Advaita. Open source. Self-hostable. Backed by iHub.
         </p>
       </footer>

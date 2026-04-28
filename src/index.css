@@ -1,6 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/apfel-grotezk');
 
 @import "tailwindcss";
+
+/* Local fallback @font-face — drop .woff2 files into /public/fonts/apfel-grotezk/ to self-host. */
+@font-face {
+  font-family: 'Apfel Grotezk';
+  src: local('Apfel Grotezk Regular'), local('Apfel Grotezk'),
+       url('/fonts/apfel-grotezk/ApfelGrotezk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Apfel Grotezk';
+  src: local('Apfel Grotezk Mittel'),
+       url('/fonts/apfel-grotezk/ApfelGrotezk-Mittel.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Apfel Grotezk';
+  src: local('Apfel Grotezk Satt'), local('Apfel Grotezk Bold'),
+       url('/fonts/apfel-grotezk/ApfelGrotezk-Satt.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Apfel Grotezk';
+  src: local('Apfel Grotezk Fett'), local('Apfel Grotezk Black'),
+       url('/fonts/apfel-grotezk/ApfelGrotezk-Fett.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ─── RESET ───────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,14 +50,14 @@ html.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-scrolling iframe { pointer-events: none; }
 * { font-family: inherit; }
 body {
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: 'Apfel Grotezk', 'IBM Plex Sans', sans-serif;
   background: #FAFAF8;
   color: #111111;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 #root { width: 100%; min-height: 100svh; }
-h1,h2,h3,h4,h5,h6 { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Apfel Grotezk', 'IBM Plex Sans', sans-serif; font-weight: 700; }
 ::selection { background: rgba(244,123,32,0.15); color: #111; }
 
 /* ─── LAYOUT CLASSES (explicit CSS, not Tailwind) ─────────────── */
@@ -36,19 +71,33 @@ h1,h2,h3,h4,h5,h6 { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; 
 }
 .lp-wrap-wide {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+/* Navbar inner wrapper — aligned with the .lp-frame border width (1280px)
+   so the logo and CTA sit flush with the page frame's left/right edges. */
+.lp-nav-wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+@media (max-width: 768px) {
+  .lp-nav-wrap { padding-left: 20px; padding-right: 20px; }
 }
 @media (max-width: 480px) {
   .lp-wrap, .lp-wrap-wide { padding-left: 16px; padding-right: 16px; }
+  .lp-nav-wrap { padding-left: 16px; padding-right: 16px; }
 }
 
 /* ─── REDESIGN TOKENS ─────────────────────────────────────────── */
 :root {
-  --adv-bg: #FAFAF4;
+  --adv-bg: white;
   --adv-surface: #FFFFFF;
   --adv-ink: #111111;
   --adv-muted: #6B6B6B;
@@ -58,7 +107,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; 
   --adv-yellow: #F5D000;
   --adv-green: #1A7A2E;
   --adv-lavender: #C9B8F0;
-  --adv-radius: 2px;
+  --adv-radius: 10px;
 }
 body { background: var(--adv-bg); color: var(--adv-ink); }
 
@@ -80,7 +129,7 @@ body { background: var(--adv-bg); color: var(--adv-ink); }
 
 /* ─── PAGE FRAME — all landing content lives inside these borders ─ */
 .lp-frame {
-  max-width: 1280px;
+  max-width: 1300px;
   margin: 0 auto;
   border-left: 1px solid var(--adv-border);
   border-right: 1px solid var(--adv-border);
@@ -220,7 +269,7 @@ body { background: var(--adv-bg); color: var(--adv-ink); }
 
 /* ─── FOOTER BIG TEXT ─────────────────────────────────────────── */
 .footer-brand-text {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Apfel Grotezk', 'Apfel Grotezk', sans-serif;
   font-weight: 900;
   font-size: clamp(5rem, 14vw, 14rem);
   line-height: 0.88;

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import logoImg from '../assets/Logo.png'
+import { LOGIN_URL, DASHBOARD_URL, isAuthenticated } from '../utils/auth.js'
 
 const NAV_DROPDOWNS = [
   {
@@ -29,16 +30,19 @@ const NAV_DROPDOWNS = [
   {
     label: 'Docs',
     links: [
-      { label: 'Getting Started', desc: 'Quickstart guides and tutorials', href: 'https://docs.advaita.ai/getting-started/overview' },
-      { label: 'API Reference', desc: 'Comprehensive API documentation', href: 'https://docs.advaita.ai/api/overview' },
-      { label: 'SDK', desc: 'Explore our software development kit', href: 'https://docs.advaita.ai/examples/overview' },
+      { label: 'Getting Started', desc: 'Quickstart guides and tutorials', target: 'docs', anchor: 'quickstart' },
+      { label: 'SDKs',            desc: 'Explore our 10 native SDKs',      target: 'docs', anchor: 'sdk-grid' },
+      { label: 'Video Tutorials', desc: 'Short walkthroughs and demos',    target: 'docs', anchor: 'video-tutorials' },
+      { label: 'API Reference',   desc: 'POST /batch and event spec',      target: 'docs', anchor: 'api-batch' },
     ]
   }
 ]
 
-export function Navbar({ onLogin, onPricing }) {
+export function Navbar({ onPricing, onSdks, onDocs }) {
   const [openDropdown, setOpenDropdown] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+  // Client-only SPA (Vite) — safe to compute auth state at initial render.
+  const [authed] = useState(() => isAuthenticated())
 
   return (
     <>
@@ -46,33 +50,42 @@ export function Navbar({ onLogin, onPricing }) {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        background: 'rgba(250,250,244,0.92)',
+        width: '100%',
+        background: 'white',
         backdropFilter: 'blur(14px) saturate(1.4)',
         WebkitBackdropFilter: 'blur(14px) saturate(1.4)',
         borderBottom: '1px solid rgba(17,17,17,0.06)',
         isolation: 'isolate',
       }}>
-        <div className="lp-wrap-wide" style={{
-          display: 'flex',
+        <div className="lp-nav-wrap" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
           alignItems: 'center',
-          justifyContent: 'space-between',
           height: 80,
+          gap: 24,
         }}>
-          {/* Logo */}
-          <a href="#" className="lp-logo" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', minWidth: 0, flexShrink: 1 }}>
+          {/* Logo (left column) */}
+          <a href="#" className="lp-logo" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            textDecoration: 'none',
+            minWidth: 0,
+            justifySelf: 'start',
+          }}>
             <img
                 src={logoImg}
                 alt="Advaita logo"
                 className="lp-logo-img"
-                style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', background: 'none', flexShrink: 0 }}
+                style={{ width: 38, height: 38, borderRadius: '50%', objectFit: 'cover', background: 'none', flexShrink: 0 }}
             />
             <span className="lp-logo-text" style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: '1.20rem',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 600,
+              fontSize: '1.24rem',
               letterSpacing: '-0.02em',
-              color: '#111',
-              lineHeight: 1,
+              color: '#0F0F0F',
+              lineHeight: 1.2,
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -81,8 +94,8 @@ export function Navbar({ onLogin, onPricing }) {
             </span>
           </a>
 
-          {/* Desktop nav */}
-          <div className="lp-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          {/* Desktop nav (center column) */}
+          <div className="lp-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 4, justifySelf: 'center' }}>
             {NAV_DROPDOWNS.map(item => (
               <div
                 key={item.label}
@@ -94,18 +107,29 @@ export function Navbar({ onLogin, onPricing }) {
                   href={item.href || '#'}
                   onClick={(e) => {
                     if (item.label === 'Pricing' && onPricing) { e.preventDefault(); onPricing() }
+                    if (item.label === 'Docs' && onDocs) { e.preventDefault(); onDocs() }
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#F5F5F2'
+                    e.currentTarget.style.color = '#0F0F0F'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent'
+                    e.currentTarget.style.color = '#1a1a1a'
                   }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 4,
-                    padding: '10px 14px',
-                    fontSize: '0.9rem',
+                    gap: 5,
+                    padding: '8px 16px',
+                    fontSize: '0.85rem',
                     fontWeight: 500,
-                    color: '#3a3a3a',
+                    color: '#1a1a1a',
                     textDecoration: 'none',
-                    fontFamily: "'IBM Plex Sans', sans-serif",
+                    fontFamily: "'Inter', sans-serif",
                     borderRadius: 8,
+                    letterSpacing: '-0.005em',
+                    transition: 'background 0.2s ease, color 0.2s ease',
                   }}
                 >
                   {item.label}
@@ -133,18 +157,35 @@ export function Navbar({ onLogin, onPricing }) {
                       <div style={{
                         background: '#fff',
                         border: '1px solid var(--adv-border)',
-                        borderRadius: 2,
+                        borderRadius: 6,
                         padding: 8,
                         boxShadow: '0 14px 40px rgba(17,17,17,0.10)',
                       }}>
                         {item.links.map(l => (
-                          <a key={l.label} href="#" style={{
-                            display: 'block',
-                            padding: '10px 12px',
-                            borderRadius: 2,
-                            textDecoration: 'none',
-                            transition: 'background 0.15s',
-                          }}
+                          <a key={l.label}
+                            href={l.href || '#'}
+                            onClick={(e) => {
+                              if (l.target === 'docs' && onDocs) {
+                                e.preventDefault()
+                                onDocs()
+                                if (l.anchor) {
+                                  setTimeout(() => {
+                                    const el = document.getElementById(l.anchor)
+                                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                                  }, 80)
+                                }
+                                setOpenDropdown(null)
+                              } else if (l.target === 'sdks' && onSdks) {
+                                e.preventDefault(); onSdks(); setOpenDropdown(null)
+                              }
+                            }}
+                            style={{
+                              display: 'block',
+                              padding: '10px 12px',
+                              borderRadius: 6,
+                              textDecoration: 'none',
+                              transition: 'background 0.15s',
+                            }}
                             onMouseEnter={e => e.currentTarget.style.background = '#FAFAF4'}
                             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                           >
@@ -160,44 +201,54 @@ export function Navbar({ onLogin, onPricing }) {
             ))}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="lp-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <button
-              onClick={onLogin}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#3a3a3a',
-                fontSize: '0.88rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                padding: '9px 14px',
-              }}
-            >
-              Sign in
-            </button> 
-            <a
-              href="#waitlist"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '10px 18px',
-                background: '#F47B20',
-                color: '#fff',
-                fontSize: '0.87rem',
-                fontWeight: 700,
-                borderRadius: 2,
-                textDecoration: 'none',
-                fontFamily: 'inherit',
-                boxShadow: '0 6px 16px rgba(244,123,32,0.28)',
-                transition: 'transform 0.18s, background 0.18s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#e06b10'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#F47B20'; e.currentTarget.style.transform = 'translateY(0)' }}
-            >
-              Join the Waitlist
-            </a>
+          {/* Desktop CTA (right column) */}
+          <div className="lp-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10, justifySelf: 'end' }}>
+            {authed ? (
+              <a
+                href={DASHBOARD_URL}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '10px 18px',
+                  background: '#F47B20',
+                  color: '#fff',
+                  fontSize: '0.87rem',
+                  fontWeight: 700,
+                  borderRadius: 6,
+                  textDecoration: 'none',
+                  fontFamily: 'inherit',
+                  boxShadow: '0 6px 16px rgba(244,123,32,0.28)',
+                  transition: 'transform 0.18s, background 0.18s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#e06b10'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#F47B20'; e.currentTarget.style.transform = 'translateY(0)' }}
+              >
+                Go to Dashboard
+              </a>
+            ) : (
+              <a
+                href={LOGIN_URL}
+                className="login-btn"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '8px 22px',
+                  background: '#F5F5F2',
+                  color: '#1a1a1a',
+                  fontSize: '0.88rem',
+                  fontWeight: 500,
+                  borderRadius: 8,
+                  textDecoration: 'none',
+                  fontFamily: "'Inter', sans-serif",
+                  letterSpacing: '-0.005em',
+                }}
+              >
+                <span className="login-btn-inner">
+                  <span className="login-btn-text">Login</span>
+                  <span className="login-btn-text login-btn-text--hover" aria-hidden="true">Login</span>
+                </span>
+              </a>
+            )}
           </div>
 
           {/* Mobile hamburger */}
@@ -227,6 +278,29 @@ export function Navbar({ onLogin, onPricing }) {
         </div>
       </nav>
 
+      {/* Login button text ticker animation (bg stays static) */}
+      <style>{`
+        .login-btn { overflow: hidden; }
+        .login-btn-inner {
+          position: relative;
+          display: inline-block;
+          line-height: 1.2;
+          height: 1.2em;
+          overflow: hidden;
+        }
+        .login-btn-text {
+          display: block;
+          transition: transform 0.32s cubic-bezier(0.65, 0, 0.35, 1);
+          will-change: transform;
+        }
+        .login-btn-text--hover {
+          position: absolute;
+          inset: 100% 0 auto 0;
+        }
+        .login-btn:hover .login-btn-text { transform: translateY(-100%); }
+        .login-btn:hover .login-btn-text--hover { transform: translateY(-100%); }
+      `}</style>
+
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
@@ -237,7 +311,7 @@ export function Navbar({ onLogin, onPricing }) {
             transition={{ duration: 0.22 }}
             style={{
               position: 'sticky',
-              top: 80,
+              top: 72,
               zIndex: 59,
               background: '#fff',
               borderBottom: '1px solid rgba(17,17,17,0.08)',
@@ -250,6 +324,7 @@ export function Navbar({ onLogin, onPricing }) {
                   href={item.href || '#'}
                   onClick={(e) => {
                     if (item.label === 'Pricing' && onPricing) { e.preventDefault(); onPricing() }
+                    if (item.label === 'Docs' && onDocs) { e.preventDefault(); onDocs() }
                     setMobileOpen(false)
                   }}
                   style={{ padding: '12px 4px', fontSize: '0.95rem', fontWeight: 600, color: '#111', textDecoration: 'none', borderBottom: '1px solid rgba(17,17,17,0.05)' }}
@@ -257,20 +332,38 @@ export function Navbar({ onLogin, onPricing }) {
                   {item.label}
                 </a>
               ))}
-              <a href="#waitlist" onClick={() => setMobileOpen(false)} style={{
-                marginTop: 12,
-                display: 'block',
-                textAlign: 'center',
-                padding: '12px 18px',
-                background: '#F47B20',
-                color: '#fff',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                borderRadius: 2,
-                textDecoration: 'none',
-              }}>
-                Join the Waitlist
-              </a>
+              {authed ? (
+                <a href={DASHBOARD_URL} onClick={() => setMobileOpen(false)} style={{
+                  marginTop: 12,
+                  display: 'block',
+                  textAlign: 'center',
+                  padding: '12px 18px',
+                  background: '#F47B20',
+                  color: '#fff',
+                  fontSize: '0.9rem',
+                  fontWeight: 700,
+                  borderRadius: 6,
+                  textDecoration: 'none',
+                }}>
+                  Go to Dashboard
+                </a>
+              ) : (
+                <a href={LOGIN_URL} onClick={() => setMobileOpen(false)} style={{
+                  marginTop: 12,
+                  display: 'block',
+                  textAlign: 'center',
+                  padding: '12px 18px',
+                  background: '#F5F5F2',
+                  color: '#111',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                  borderRadius: 6,
+                  border: '1px solid rgba(17,17,17,0.06)',
+                  textDecoration: 'none',
+                }}>
+                  Login
+                </a>
+              )}
             </div>
           </motion.div>
         )}

@@ -39,7 +39,7 @@ export function IntegrationsSection() {
           fontWeight: 700,
           letterSpacing: '0.16em',
           textTransform: 'uppercase',
-          borderRadius: 2,
+          borderRadius: 6,
           marginBottom: 22,
           boxShadow: '0 1px 2px rgba(17,17,17,0.03)',
         }}>
@@ -47,7 +47,7 @@ export function IntegrationsSection() {
           Integrations
         </span>
         <h2 style={{
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: "'Apfel Grotezk', sans-serif",
           fontWeight: 700,
           fontSize: 'clamp(2rem, 4.2vw, 3.2rem)',
           lineHeight: 1.08,

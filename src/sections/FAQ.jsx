@@ -55,11 +55,11 @@ function FAQItem({ faq, isOpen, onToggle }) {
   return (
     <div
       style={{
-        background: '#fff',
+        background: isOpen ? '#F1F1EE' : '#fff',
         border: '1px solid var(--adv-border)',
-        borderRadius: 2,
+        borderRadius: 6,
         padding: '22px 26px',
-        transition: 'box-shadow 0.2s ease',
+        transition: 'background 0.2s ease, box-shadow 0.2s ease',
         boxShadow: isOpen ? '0 2px 14px rgba(17,17,17,0.05)' : 'none',
       }}
     >
@@ -83,7 +83,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
       >
         <span
           style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: "'Apfel Grotezk', sans-serif",
             fontWeight: 500,
             fontSize: '1.02rem',
             color: 'black',
@@ -134,7 +134,11 @@ export function FAQ() {
     >
       <div className="lp-wrap-wide" style={{ position: 'relative', zIndex: 1 }}>
         <div className="faq-grid">
-          <div className="faq-left">
+          <div className="faq-left" style={{
+            position: 'sticky',
+            top: 96,
+            alignSelf: 'start',
+          }}>
             <span
               style={{
                 display: 'inline-flex',
@@ -148,7 +152,7 @@ export function FAQ() {
                 fontWeight: 800,
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                borderRadius: 2,
+                borderRadius: 6,
                 marginBottom: 22,
               }}
             >
@@ -158,14 +162,14 @@ export function FAQ() {
                   width: 8,
                   height: 8,
                   background: '#F47B20',
-                  borderRadius: 2,
+                  borderRadius: 6,
                 }}
               />
               FAQ
             </span>
             <h2
               style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: "'Apfel Grotezk', sans-serif",
                 fontWeight: 800,
                 fontSize: 'clamp(2rem, 3.8vw, 2.85rem)',
                 color: '#111',
@@ -210,6 +214,9 @@ export function FAQ() {
           .faq-grid {
             grid-template-columns: 1fr;
             gap: 40px;
+          }
+          .faq-left {
+            position: static !important;
           }
         }
       `}</style>

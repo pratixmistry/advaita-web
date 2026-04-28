@@ -1,9 +1,9 @@
-/* "What Advaita Can Do" — alternating white-content / gradient-preview rows with animated previews */
+/* "What Advaita Can Do" — clean, minimal grey-card layout (Dodo-style) */
 
 import { useEffect, useRef, useState } from 'react'
 
 /* ────────────────────────────────────────────────────────── */
-/*  Shared hooks + layout primitives                           */
+/*  Shared hooks                                               */
 /* ────────────────────────────────────────────────────────── */
 
 function useInView(threshold = 0.18) {
@@ -23,33 +23,12 @@ function useInView(threshold = 0.18) {
   return [ref, inView]
 }
 
-function CheckBullet({ text }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-      <span
-        style={{
-          width: 20,
-          height: 20,
-          borderRadius: '50%',
-          background: '#F47B20',
-          color: '#fff',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <path d="M2 5 L4.2 7 L8 3" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </span>
-      <span style={{ fontSize: '0.94rem', color: '#1a1a1a', fontWeight: 600 }}>{text}</span>
-    </div>
-  )
-}
+/* ────────────────────────────────────────────────────────── */
+/*  Feature row (left = copy, right = preview card)            */
+/* ────────────────────────────────────────────────────────── */
 
-function FeatureRow({ reverse = false, title, subtitle, bullets, image, tint, preview }) {
-  const [ref, inView] = useInView(0.2)
+function FeatureRow({ reverse = false, icon, iconBg, iconColor, label, title, description, learnMore, href = '#', preview }) {
+  const [ref, inView] = useInView(0.18)
 
   return (
     <div
@@ -57,70 +36,32 @@ function FeatureRow({ reverse = false, title, subtitle, bullets, image, tint, pr
       className={`cap-row ${reverse ? 'cap-row-reverse' : ''}`}
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(24px)',
-        transition: 'opacity 0.7s ease, transform 0.7s ease',
+        transform: inView ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
       }}
     >
-      {/* Preview side */}
-      <div className="cap-preview">
-        <div className="cap-preview-gradient">
-          <div
-            className="cap-preview-bg"
-            aria-hidden="true"
-            style={{
-              backgroundImage: `url(${image})`,
-            }}
-          />
-          <div
-            className="cap-preview-tint"
-            aria-hidden="true"
-            style={{
-              background: tint || 'linear-gradient(135deg, rgba(244,123,32,0.35) 0%, rgba(26,26,26,0.15) 60%, rgba(17,17,17,0.35) 100%)',
-            }}
-          />
-          <div className="cap-preview-grid" aria-hidden="true" />
-          <div className="cap-preview-inner">{preview}</div>
-        </div>
-      </div>
-
-      {/* Content side — white bg */}
       <div className="cap-content">
-        <h3
-          style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
-            fontWeight: 500,
-            fontSize: 'clamp(1.6rem, 2.6vw, 2.2rem)',
-            color: '#111',
-            margin: '0 0 14px',
-            letterSpacing: '-0.025em',
-            lineHeight: 1.2,
-          }}
-        >
-          {title}
-        </h3>
-        <p
-          style={{
-            fontSize: '0.98rem',
-            color: '#6b6b6b',
-            lineHeight: 1.65,
-            margin: '0 0 28px',
-            maxWidth: 440,
-          }}
-        >
-          {subtitle}
-        </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {bullets.map((b) => (
-            <CheckBullet key={b} text={b} />
-          ))}
+        <div className="cap-label-row">
+          <span className="cap-label-icon" style={{ background: iconBg, color: iconColor }}>
+            {icon}
+          </span>
+          <span className="cap-label-text">{label}</span>
         </div>
+        <h3 className="cap-title">{title}</h3>
+        <p className="cap-desc">{description}</p>
+        <a href={href} className="cap-learn-more">
+          Learn more about {learnMore}
+        </a>
+      </div>
+      <div className="cap-preview">
+        <div className="cap-preview-card">{preview}</div>
       </div>
     </div>
   )
 }
 
 /* ────────────────────────────────────────────────────────── */
-/*  Animated Previews                                          */
+/*  Animated Previews (unchanged)                              */
 /* ────────────────────────────────────────────────────────── */
 
 function KPIPreview() {
@@ -130,7 +71,7 @@ function KPIPreview() {
         KPI Growth Tracking
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-        <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 800, fontSize: '1.95rem', letterSpacing: '-0.02em' }}>
+        <span style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 800, fontSize: '1.95rem', letterSpacing: '-0.02em' }}>
           24%
         </span>
         <span
@@ -146,9 +87,7 @@ function KPIPreview() {
         </span>
       </div>
 
-      {/* animated line chart */}
       <svg viewBox="0 0 300 120" width="100%" height="130" style={{ display: 'block' }}>
-        {/* grid lines */}
         <line x1="0" y1="20"  x2="300" y2="20"  stroke="rgba(17,17,17,0.08)" />
         <line x1="0" y1="60"  x2="300" y2="60"  stroke="rgba(17,17,17,0.08)" />
         <line x1="0" y1="100" x2="300" y2="100" stroke="rgba(17,17,17,0.08)" />
@@ -156,7 +95,6 @@ function KPIPreview() {
         <text x="0" y="57"  fontSize="9" fill="#8a8a8a">25%</text>
         <text x="0" y="115" fontSize="9" fill="#8a8a8a">0</text>
 
-        {/* animated path */}
         <path
           id="kpi-line"
           d="M25 100 L70 92 L115 78 L160 66 L205 52 L250 32 L290 16"
@@ -169,7 +107,6 @@ function KPIPreview() {
           strokeDasharray="1"
           style={{ animation: 'kpi-draw 2s ease forwards' }}
         />
-        {/* travelling dot */}
         <circle r="3.2" fill="#8A74E5" style={{ filter: 'drop-shadow(0 0 4px rgba(138,116,229,0.7))' }}>
           <animateMotion
             dur="3.6s"
@@ -185,7 +122,6 @@ function KPIPreview() {
           />
         </circle>
 
-        {/* x-axis labels */}
         {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map((m, i) => (
           <text key={m} x={25 + i * 53} y="118" fontSize="9" fill="#8a8a8a" textAnchor="middle">{m}</text>
         ))}
@@ -218,7 +154,7 @@ function RCAPreview() {
           Anomaly detected
         </span>
       </div>
-      <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: '1rem', marginBottom: 4 }}>
+      <div style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '1rem', marginBottom: 4 }}>
         Retention dropped −18% this week
       </div>
       <div style={{ fontSize: '0.78rem', color: '#6b6b6b', marginBottom: 14 }}>
@@ -305,7 +241,6 @@ function SDKPreview() {
         }}
       >
         <span style={{ color: '#F47B20' }}>$</span> pip install <span style={{ color: '#F5D000' }}>acai-python</span>
-        {/* shimmer */}
         <div
           aria-hidden="true"
           style={{
@@ -385,7 +320,7 @@ function ExperimentPreview() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
         <div>
           <div style={{ fontSize: '0.72rem', color: '#6b6b6b', fontWeight: 600 }}>Experiment</div>
-          <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: '0.98rem' }}>
+          <div style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '0.98rem' }}>
             New onboarding flow
           </div>
         </div>
@@ -478,182 +413,235 @@ function ExperimentPreview() {
 }
 
 /* ────────────────────────────────────────────────────────── */
+/*  Inline icons used in the label badges                      */
+/* ────────────────────────────────────────────────────────── */
+
+const TrackingIcon = (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <path d="M2 12L6 8L9 11L14 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+const InsightIcon = (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <path d="M8 2L9.5 6.5L14 8L9.5 9.5L8 14L6.5 9.5L2 8L6.5 6.5L8 2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+  </svg>
+)
+const SDKIcon = (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <path d="M5 4L1.5 8L5 12M11 4L14.5 8L11 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+const FlaskIcon = (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <path d="M6 2H10M6.5 2V6.5L3 12.5C2.5 13.3 3.1 14 4 14H12C12.9 14 13.5 13.3 13 12.5L9.5 6.5V2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+/* ────────────────────────────────────────────────────────── */
 /*  Main section                                               */
 /* ────────────────────────────────────────────────────────── */
 
 export function CapabilitiesBento() {
   return (
-    <section id="features" className="lp-grid-bg" style={{ background: 'var(--adv-bg)', padding: '96px 0' }}>
+    <section id="features" style={{ background: '#fff', padding: '110px 0' }}>
       <div className="lp-wrap-wide">
-        <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto 72px' }}>
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '4px 12px',
-              background: '#F47B20',
-              color: '#fff',
-              fontSize: '0.68rem',
-              fontWeight: 800,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              borderRadius: 2,
-              marginBottom: 18,
-            }}
-          >
-            Capabilities
-          </span>
+        {/* Heading */}
+        <div style={{ textAlign: 'center', maxWidth: 720, margin: '0 auto 64px' }}>
           <h2
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
-              fontWeight: 800,
-              fontSize: 'clamp(2rem, 4.2vw, 3.2rem)',
-              lineHeight: 1.08,
-              letterSpacing: '-0.028em',
-              color: '#111',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(1.9rem, 3.6vw, 2.7rem)',
+              lineHeight: 1.12,
+              letterSpacing: '-0.025em',
+              color: '#0F0F0F',
               margin: '0 0 14px',
             }}
           >
             What Advaita Can Do
           </h2>
-          <p style={{ fontSize: '1.02rem', color: '#6b6b6b', lineHeight: 1.6, margin: 0 }}>
-            Real-time tracking, AI root-cause analysis, experiments, and drop-in SDKs — the complete analytics stack on infrastructure you own.
+          <p style={{
+            fontSize: '1rem',
+            color: '#6b6b6b',
+            lineHeight: 1.6,
+            margin: 0,
+            fontFamily: "'Inter', sans-serif",
+          }}>
+            Real-time tracking, AI root-cause analysis, experiments, and drop-in SDKs —
+            the complete analytics stack on infrastructure you own.
           </p>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        {/* Feature rows */}
+        <div className="cap-grid">
           <FeatureRow
-            title="Advanced KPI growth tracking plus"
-            subtitle="Advanced KPI growth tracking plus automated insights to drive better decision-making across business and product metrics."
-            bullets={[
-              'Track KPIs in real time',
-              'Monitor growth trends instantly',
-              'Compare progress over time',
-            ]}
-            image="https://images.unsplash.com/vector-1762006301173-56e3e209e89d?auto=format&fit=crop&w=1400&q=80"
-            tint="linear-gradient(135deg, rgba(244,123,32,0.18) 0%, rgba(245,208,0,0.10) 50%, rgba(17,17,17,0.15) 100%)"
+            label="Tracking"
+            icon={TrackingIcon}
+            iconBg="#F4ECDF"
+            iconColor="#C75A14"
+            title={<>KPI growth tracking,<br />built for product teams</>}
+            description="Track KPIs in real time, monitor growth trends instantly, and compare progress over time — with automated insights to drive better decisions across business and product metrics."
+            learnMore="Tracking"
             preview={<KPIPreview />}
           />
 
           <FeatureRow
             reverse
-            title="AI root-cause analysis, not just charts"
-            subtitle="Advaita detects anomalies before you do and explains why in plain English — with confidence scores, source citations, and evidence."
-            bullets={[
-              'Automatic anomaly detection',
-              'Plain-English root cause',
-              'Evidence with confidence scores',
-            ]}
-            image="https://images.unsplash.com/vector-1744442860865-0765bab8753c?auto=format&fit=crop&w=1400&q=80"
-            tint="linear-gradient(135deg, rgba(138,116,229,0.20) 0%, rgba(232,167,208,0.12) 50%, rgba(244,123,32,0.18) 100%)"
+            label="AI Insights"
+            icon={InsightIcon}
+            iconBg="#ECE5FA"
+            iconColor="#6F58C9"
+            title={<>AI root-cause analysis,<br />not just charts</>}
+            description="Advaita detects anomalies before you do and explains the why in plain English — with confidence scores, source citations, and supporting evidence."
+            learnMore="AI Insights"
             preview={<RCAPreview />}
           />
 
           <FeatureRow
-            title="SDKs for every platform you ship on"
-            subtitle="One-line instrumentation across Python, TypeScript, JavaScript, Node, Go, Kotlin, Java, and Flutter — all with the same clean API."
-            bullets={[
-              '8+ platforms out of the box',
-              'One-command install',
-              'Same schema, everywhere',
-            ]}
-            image="https://images.unsplash.com/vector-1775456266139-56793a364661?auto=format&fit=crop&w=1400&q=80"
-            tint="linear-gradient(135deg, rgba(26,122,46,0.20) 0%, rgba(0,173,216,0.12) 50%, rgba(245,208,0,0.18) 100%)"
+            label="SDKs"
+            icon={SDKIcon}
+            iconBg="#DDEEE0"
+            iconColor="#1A7A2E"
+            title={<>SDKs for every<br />platform you ship on</>}
+            description="One-line instrumentation across Python, TypeScript, JavaScript, Node, Go, Kotlin, Java, and Flutter — all with the same clean API and consistent schema."
+            learnMore="SDKs"
             preview={<SDKPreview />}
           />
 
           <FeatureRow
             reverse
-            title="Run experiments with confidence"
-            subtitle="Launch notification-based A/B tests, track statistical significance automatically, and alert your team the moment a metric moves."
-            bullets={[
-              'Automated A/B analysis',
-              'Winner detection with evidence',
-              'Smart alerts to your team',
-            ]}
-            image="https://images.unsplash.com/vector-1758199808614-fa4f21866080?auto=format&fit=crop&w=1400&q=80"
-            tint="linear-gradient(135deg, rgba(244,123,32,0.18) 0%, rgba(232,167,208,0.12) 50%, rgba(138,116,229,0.20) 100%)"
+            label="Experiments"
+            icon={FlaskIcon}
+            iconBg="#FAEFC2"
+            iconColor="#A18800"
+            title={<>Run experiments<br />with confidence</>}
+            description="Launch notification-based A/B tests, track statistical significance automatically, and alert your team the moment a metric meaningfully moves."
+            learnMore="Experiments"
             preview={<ExperimentPreview />}
           />
         </div>
       </div>
 
       <style>{`
+        .cap-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 22px;
+        }
+
         .cap-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          background: #fff;
-          border: 1px solid var(--adv-border);
-          border-radius: 0;
+          background: rgb(251,251,250);
+          border: 1px solid rgba(17,17,17,0.05);
+          border-radius: 13px;
           overflow: hidden;
           align-items: stretch;
+          min-height: 380px;
         }
-        .cap-row-reverse .cap-preview { order: 2; }
-        .cap-row-reverse .cap-content { order: 1; }
+        .cap-row-reverse .cap-content { order: 2; }
+        .cap-row-reverse .cap-preview { order: 1; }
 
         .cap-content {
-          background: #fff;
-          padding: 56px 60px;
+          padding: 56px 56px;
           display: flex;
           flex-direction: column;
           justify-content: center;
         }
 
-        .cap-preview {
-          position: relative;
-          min-height: 400px;
+        .cap-label-row {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 22px;
         }
-        .cap-preview-gradient {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          padding: 48px 40px;
-          overflow: hidden;
-          display: flex;
+        .cap-label-icon {
+          width: 26px;
+          height: 26px;
+          border-radius: 7px;
+          display: inline-flex;
           align-items: center;
           justify-content: center;
-          background-color: #1a1a1a;
         }
-        .cap-preview-bg {
-          position: absolute;
-          inset: -20px;
-          background-size: cover;
-          background-position: center;
-          filter: blur(18px) saturate(130%);
-          transform: scale(1.08);
-          pointer-events: none;
+        .cap-label-text {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.92rem;
+          font-weight: 600;
+          color: #1a1a1a;
+          letter-spacing: -0.005em;
         }
-        .cap-preview-tint {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
+        .cap-title {
+          font-family: 'Inter', sans-serif;
+          font-weight: 700;
+          font-size: clamp(1.45rem, 2.3vw, 1.95rem);
+          letter-spacing: -0.022em;
+          color: #0F0F0F;
+          margin: 0 0 18px;
+          line-height: 1.18;
         }
-        .cap-preview-grid {
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px);
-          background-size: 28px 28px;
-          pointer-events: none;
-          opacity: 0.4;
-          mask-image: radial-gradient(ellipse at center, transparent 0%, black 85%);
+        .cap-desc {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.96rem;
+          color: #5a5a5a;
+          line-height: 1.65;
+          margin: 0 0 28px;
+          max-width: 460px;
         }
-        .cap-preview-inner {
+        .cap-learn-more {
+          display: inline-block;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #0F0F0F;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-thickness: 1.5px;
+          transition: opacity 0.18s ease;
+        }
+        .cap-learn-more:hover { opacity: 0.7; }
+
+        /* Right-side preview card — clean white, subtle bleed off the outer edge */
+        .cap-preview {
           position: relative;
+          display: flex;
+          align-items: center;
+          padding: 40px 0 40px 20px;
+          overflow: hidden;
+        }
+        .cap-preview-card {
           background: #fff;
+          border: 1px solid rgba(17,17,17,0.06);
+          border-radius: 12px;
           padding: 22px 24px;
-          width: 100%;
-          max-width: 420px;
-          box-shadow: 0 18px 40px -18px rgba(17,17,17,0.35);
+          width: calc(100% + 40px);
+          max-width: 520px;
+          box-shadow: 0 12px 32px -14px rgba(17,17,17,0.10);
+        }
+        .cap-row-reverse .cap-preview {
+          padding: 40px 20px 40px 0;
+          justify-content: flex-end;
+        }
+        .cap-row-reverse .cap-preview-card {
+          margin-left: -40px;
         }
 
         @media (max-width: 980px) {
-          .cap-row { grid-template-columns: 1fr; }
-          .cap-row-reverse .cap-preview { order: 1; }
-          .cap-row-reverse .cap-content { order: 2; }
-          .cap-content { padding: 40px 28px; }
-          .cap-preview { min-height: 320px; }
-          .cap-preview-gradient { padding: 32px 24px; }
+          .cap-row {
+            grid-template-columns: 1fr;
+            min-height: 0;
+          }
+          .cap-content { padding: 36px 28px 8px; }
+          .cap-preview {
+            padding: 24px 20px 32px !important;
+            justify-content: center !important;
+          }
+          .cap-preview-card {
+            width: 100% !important;
+            margin: 0 !important;
+            max-width: 480px;
+          }
+          .cap-row-reverse .cap-content { order: 1; }
+          .cap-row-reverse .cap-preview { order: 2; }
         }
       `}</style>
     </section>

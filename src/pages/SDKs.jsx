@@ -12,6 +12,7 @@ const SDKS = [
     color: '#3178C6',
     tag: 'Browser · Node · RN',
     icon: 'TS',
+    slug: 'typescript',
     install: 'npm install @acai/analytics-browser',
     fileName: 'analytics.ts',
     lang: 'typescript',
@@ -43,6 +44,7 @@ acai.track('Purchase Completed', {
     color: '#F5D000',
     tag: 'Flask · Django · FastAPI',
     icon: 'PY',
+    slug: 'python',
     install: 'pip install acai-analytics',
     fileName: 'analytics.py',
     lang: 'python',
@@ -76,6 +78,7 @@ client.shutdown()`,
     color: '#00ACD7',
     tag: 'Gin · Echo · net/http',
     icon: 'GO',
+    slug: 'go',
     install: 'go get github.com/acai/analytics-go',
     fileName: 'main.go',
     lang: 'go',
@@ -109,6 +112,7 @@ func main() {
     color: '#83CD29',
     tag: 'Express · NestJS · Koa',
     icon: 'JS',
+    slug: 'nodedotjs',
     install: 'npm install @acai/analytics-node',
     fileName: 'server.ts',
     lang: 'typescript',
@@ -135,6 +139,7 @@ await acai.flush().promise`,
     color: '#EF8B2C',
     tag: 'Spring · Dropwizard',
     icon: 'JV',
+    slug: 'openjdk',
     install: 'implementation "com.acai:acai-java-sdk:1.0.0"',
     fileName: 'Analytics.java',
     lang: 'java',
@@ -162,6 +167,7 @@ client.flushEvents();`,
     color: '#A97BFF',
     tag: 'Android · JVM',
     icon: 'KT',
+    slug: 'kotlin',
     install: 'implementation("com.acai:analytics-android:1.0.0")',
     fileName: 'Analytics.kt',
     lang: 'kotlin',
@@ -189,6 +195,7 @@ acai.track("Button Clicked", mapOf(
     color: '#F05138',
     tag: 'iOS · macOS · tvOS',
     icon: 'SW',
+    slug: 'swift',
     install: '.package(url: "https://github.com/your-org/Acai-Swift.git")',
     fileName: 'Analytics.swift',
     lang: 'swift',
@@ -220,6 +227,7 @@ acai.revenue(revenue: revenue)`,
     color: '#54C5F8',
     tag: 'Android · iOS · Web',
     icon: 'FL',
+    slug: 'flutter',
     install: 'flutter pub add acai_flutter',
     fileName: 'main.dart',
     lang: 'dart',
@@ -246,6 +254,7 @@ acai.track(BaseEvent(
     color: '#61DAFB',
     tag: 'iOS · Android',
     icon: 'RN',
+    slug: 'react',
     install: 'npm install @acai/react-native-sdk',
     fileName: 'App.tsx',
     lang: 'typescript',
@@ -273,6 +282,7 @@ acai.logEvent('button_clicked', {
     color: '#F7DF1E',
     tag: 'Browser · UMD · ESM',
     icon: 'JS',
+    slug: 'javascript',
     install: 'npm install acai-js',
     fileName: 'analytics.js',
     lang: 'javascript',
@@ -434,7 +444,7 @@ function CopyButton({ text }) {
         fontWeight: 600,
         color: copied ? '#1A7A2E' : 'rgba(255,255,255,0.6)',
         cursor: 'pointer',
-        fontFamily: "'IBM Plex Sans', sans-serif",
+        fontFamily: "'Apfel Grotezk', sans-serif",
         transition: 'color 0.15s, background 0.15s',
         letterSpacing: '0.04em',
       }}
@@ -454,15 +464,15 @@ function SDKCard({ sdk, active, onClick }) {
       onClick={onClick}
       style={{
         textAlign: 'left',
-        background: active ? 'rgba(244,123,32,0.08)' : '#161616',
+        background: active ? `${sdk.color}14` : '#161616',
         border: active
-          ? '1px solid rgba(244,123,32,0.45)'
+          ? `1px solid ${sdk.color}73`
           : '1px solid rgba(255,255,255,0.07)',
         borderRadius: 14,
         padding: '18px 18px 16px',
         cursor: 'pointer',
         transition: 'background 0.18s, border-color 0.18s, transform 0.18s',
-        fontFamily: "'IBM Plex Sans', sans-serif",
+        fontFamily: "'Apfel Grotezk', sans-serif",
         color: '#F0EBE0',
       }}
       onMouseEnter={e => {
@@ -487,13 +497,26 @@ function SDKCard({ sdk, active, onClick }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontWeight: 800,
-          fontSize: '0.78rem',
-          color: sdk.color,
-          fontFamily: "'Space Grotesk', sans-serif",
-          letterSpacing: '-0.02em',
+          padding: 8,
+          flexShrink: 0,
         }}>
-          {sdk.icon}
+          {sdk.slug ? (
+            <img
+              src={`https://cdn.simpleicons.org/${sdk.slug}/${sdk.color.replace('#', '')}`}
+              alt={`${sdk.name} logo`}
+              width={22}
+              height={22}
+              style={{ display: 'block', objectFit: 'contain' }}
+            />
+          ) : (
+            <span style={{
+              fontWeight: 800,
+              fontSize: '0.78rem',
+              color: sdk.color,
+              fontFamily: "'Apfel Grotezk', sans-serif",
+              letterSpacing: '-0.02em',
+            }}>{sdk.icon}</span>
+          )}
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#F0EBE0', lineHeight: 1.1 }}>
@@ -506,8 +529,7 @@ function SDKCard({ sdk, active, onClick }) {
         {active && (
           <div style={{
             width: 8, height: 8, borderRadius: '50%',
-            background: '#F47B20',
-            boxShadow: '0 0 10px rgba(244,123,32,0.6)',
+            background: sdk.color,
           }} />
         )}
       </div>
@@ -520,7 +542,7 @@ function SDKCard({ sdk, active, onClick }) {
 
 /* ─── Main Page ────────────────────────────────────────────── */
 
-export default function SDKs({ onBack }) {
+export default function SDKs({ onBack, onDocs }) {
   const [category, setCategory] = useState('All')
   const [activeId, setActiveId] = useState('typescript')
 
@@ -532,7 +554,7 @@ export default function SDKs({ onBack }) {
       minHeight: '100vh',
       background: '#0E0E0E',
       color: '#F0EBE0',
-      fontFamily: "'IBM Plex Sans', sans-serif",
+      fontFamily: "'Apfel Grotezk', sans-serif",
     }}>
 
       {/* ── Navbar ───────────────────────────────────────────── */}
@@ -557,13 +579,10 @@ export default function SDKs({ onBack }) {
             style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
             <img src={logoImg} alt="Advaita logo"
               style={{ width: 36, height: 36, borderRadius: '50%', mixBlendMode: 'lighten', objectFit: 'cover' }} />
-            <span style={{ fontWeight: 700, fontSize: '1.15rem', color: '#F0EBE0', letterSpacing: '0.02em' }}>
-              ADVAITA
-            </span>
           </a>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <a href="#" onClick={e => { e.preventDefault(); onBack && onBack() }}
+            <a href="#docs" onClick={e => { e.preventDefault(); onDocs ? onDocs() : (onBack && onBack()) }}
               style={{ fontSize: '0.875rem', fontWeight: 500, color: 'rgba(240,235,224,0.5)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 5, transition: 'color 0.15s' }}
               onMouseEnter={e => e.currentTarget.style.color = '#F0EBE0'}
               onMouseLeave={e => e.currentTarget.style.color = 'rgba(240,235,224,0.5)'}
@@ -571,7 +590,7 @@ export default function SDKs({ onBack }) {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M9 11L5 7l4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Back to home
+              Back to Docs
             </a>
             <a href="#waitlist" onClick={() => onBack && onBack()}
               style={{ padding: '8px 18px', background: '#F47B20', color: '#fff', borderRadius: 7, fontSize: '0.875rem', fontWeight: 700, textDecoration: 'none', transition: 'background 0.15s', letterSpacing: '0.02em' }}
@@ -601,7 +620,7 @@ export default function SDKs({ onBack }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: 48, alignItems: 'flex-end' }}>
           <div>
             <h1 style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Apfel Grotezk', sans-serif",
               fontWeight: 900,
               fontSize: 'clamp(2.4rem, 5vw, 3.6rem)',
               color: '#F0EBE0',
@@ -609,7 +628,7 @@ export default function SDKs({ onBack }) {
               lineHeight: 1.08,
               letterSpacing: '-0.025em',
             }}>
-              One <span style={{ color: '#F47B20' }}>protocol</span>,
+              One protocol,
               <br />every runtime.
             </h1>
             <p style={{
@@ -643,7 +662,7 @@ export default function SDKs({ onBack }) {
                 padding: '18px 20px',
               }}>
                 <div style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Apfel Grotezk', sans-serif",
                   fontWeight: 800,
                   fontSize: '1.8rem',
                   color: '#F0EBE0',
@@ -683,7 +702,7 @@ export default function SDKs({ onBack }) {
                 fontSize: '0.78rem',
                 fontWeight: 700,
                 cursor: 'pointer',
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: "'Apfel Grotezk', sans-serif",
                 transition: 'background 0.15s, color 0.15s, border-color 0.15s',
                 letterSpacing: '0.02em',
               }}
@@ -841,7 +860,7 @@ export default function SDKs({ onBack }) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Apfel Grotezk', sans-serif",
                   fontWeight: 800,
                   fontSize: '1.4rem',
                   color: node.color,
@@ -1117,11 +1136,11 @@ export default function SDKs({ onBack }) {
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="#waitlist" onClick={() => onBack && onBack()}
-              style={{ padding: '13px 28px', background: '#F47B20', color: '#fff', borderRadius: 8, fontSize: '0.95rem', fontWeight: 700, textDecoration: 'none', letterSpacing: '0.02em', transition: 'background 0.15s, box-shadow 0.15s' }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#e0701c'; e.currentTarget.style.boxShadow = '0 4px 24px rgba(244,123,32,0.4)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#F47B20'; e.currentTarget.style.boxShadow = 'none' }}
+              style={{ padding: '13px 28px', background: '#F47B20', color: '#fff', borderRadius: 8, fontSize: '0.95rem', fontWeight: 700, textDecoration: 'none', letterSpacing: '0.02em', transition: 'background 0.15s' }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#e0701c' }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#F47B20' }}
             >
-              Join the waitlist →
+              Join the waitlist
             </a>
             <a href="#docs"
               style={{ padding: '13px 28px', background: 'transparent', color: '#F0EBE0', border: '1.5px solid rgba(255,255,255,0.14)', borderRadius: 8, fontSize: '0.95rem', fontWeight: 600, textDecoration: 'none', transition: 'border-color 0.15s' }}

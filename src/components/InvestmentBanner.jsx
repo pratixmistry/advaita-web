@@ -16,7 +16,7 @@ export function InvestmentBanner() {
         fontSize: '0.82rem',
         fontWeight: 500,
         color: '#2a2a2a',
-        fontFamily: "'IBM Plex Sans', sans-serif",
+        fontFamily: "'Apfel Grotezk', sans-serif",
         letterSpacing: '-0.005em',
       }}>
         <span style={{ fontWeight: 500, color: '#111' }}>Startup Srujan Grant S4</span>

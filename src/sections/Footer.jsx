@@ -4,7 +4,7 @@ import logoImg from '../assets/Logo.png'
 export function Footer() {
   return (
     <footer style={{ background: '#0A0A0A', color: '#F0EBE0', overflow: 'hidden', width: '100%' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', borderLeft: '1px solid rgba(240,235,224,0.10)', borderRight: '1px solid rgba(240,235,224,0.10)' }}>
+      <div style={{ maxWidth: 1300, margin: '0 auto', borderLeft: '1px solid rgba(240,235,224,0.10)', borderRight: '1px solid rgba(240,235,224,0.10)' }}>
       <div className="lp-wrap">
         {/* Top: logo column + link columns */}
         <div className="lp-footer-cols">
@@ -16,7 +16,7 @@ export function Footer() {
                 alt="Advaita logo"
                 style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', background: 'none' }}
               />
-              <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: '1.2rem', color: '#F0EBE0' }}>Advaita Intelligence</span>
+              <span style={{ fontFamily: "'Apfel Grotezk', sans-serif", fontWeight: 700, fontSize: '1.2rem', color: '#F0EBE0' }}>Advaita Intelligence</span>
             </div>
             <p style={{ fontSize: '0.875rem', color: 'rgba(240,235,224,0.45)', lineHeight: 1.65, maxWidth: 240 }}>
               AI-powered clickstream analytics. Open source, self-hosted, and built for engineering teams.
@@ -81,7 +81,7 @@ export function Footer() {
 
       {/* Giant brand wordmark at the bottom */}
       <div style={{ padding: '0 32px', overflow: 'hidden', lineHeight: 1, textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: 32, paddingBottom: 0 }}>
-        <div className="footer-brand-text" style={{fontFamily:'IBM Plex Sans'}}>ADVAITA</div>
+        <div className="footer-brand-text" style={{fontFamily:'Apfel Grotezk'}}>ADVAITA</div>
       </div>
       </div>
     </footer>

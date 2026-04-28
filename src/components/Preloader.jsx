@@ -24,7 +24,7 @@ export function Preloader({ duration = 1400, onFinish }) {
       style={{
         position: 'fixed',
         inset: 0,
-        background: '#FAFAF4',
+        background: 'white',
         zIndex: 9999,
         display: 'flex',
         alignItems: 'center',
@@ -108,7 +108,7 @@ export function Preloader({ duration = 1400, onFinish }) {
 
       <div
         style={{
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: "'Apfel Grotezk', sans-serif",
           fontWeight: 700,
           fontSize: '0.74rem',
           letterSpacing: '0.24em',

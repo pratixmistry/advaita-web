@@ -46,7 +46,7 @@ export function Hero() {
               display: 'inline-flex', alignItems: 'center',
               background: '#FAFAF8', color: 'black', border: '1px solid #E0E0D9',
               fontSize: '0.7rem', fontWeight: 400,
-              padding: '4px 12px', borderRadius: 2,
+              padding: '4px 12px', borderRadius: 6,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
             }}>
@@ -61,24 +61,24 @@ export function Hero() {
           <motion.h1
             variants={fadeUp}
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Apfel Grotezk', sans-serif",
               fontWeight: 500,
-              fontSize: 'clamp(2.8rem, 6.4vw, 5.25rem)',
-              lineHeight: 1.04,
+              fontSize: 'clamp(2.4rem, 5.4vw, 4.5rem)',
+              lineHeight: 1.06,
               letterSpacing: '-0.035em',
               color: '#111',
               margin: '0 0 20px',
-              maxWidth: 900,
+              maxWidth: 860,
             }}
           >
-            The AI Analytics Platform for Faster, Deeper <span style={{ color: '#F47B20' }}>Decisions.</span>
+            The AI Analytics Platform for Faster, Deeper Decisions.
           </motion.h1>
 
           {/* Subheading */}
           <motion.p
             variants={fadeUp}
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Apfel Grotezk', sans-serif",
               fontSize: '1.05rem',
               color: '#6b6b6b',
               lineHeight: 1.6,
@@ -98,7 +98,7 @@ export function Hero() {
               background: '#fff',
               color: '#111',
               border: '1px solid rgba(17,17,17,0.14)',
-              borderRadius: 2,
+              borderRadius: 6,
               fontSize: '0.92rem',
               fontWeight: 600,
               textDecoration: 'none',
@@ -108,26 +108,24 @@ export function Hero() {
               onMouseEnter={e => { e.currentTarget.style.background = '#F5F5EF' }}
               onMouseLeave={e => { e.currentTarget.style.background = '#fff' }}
             >
-              Learn More
+              Get Started Now
             </a>
-            <a href="#waitlist" style={{
+            <a href="#waitlist" className="login-btn" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '13px 24px',
               background: '#F47B20',
               color: '#fff',
               border: '1px solid #F47B20',
-              borderRadius: 2,
+              borderRadius: 6,
               fontSize: '0.92rem',
               fontWeight: 700,
               textDecoration: 'none',
               fontFamily: 'inherit',
-              boxShadow: '0 10px 24px rgba(244,123,32,0.28)',
-              transition: 'transform 0.18s, background 0.18s',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#e06b10'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#F47B20'; e.currentTarget.style.transform = 'translateY(0)' }}
-            >
-              Book a Demo <span style={{ fontSize: '1.1rem', lineHeight: 1 }}>→</span>
+            }}>
+              <span className="login-btn-inner">
+                <span className="login-btn-text">Book a Demo</span>
+                <span className="login-btn-text login-btn-text--hover" aria-hidden="true">Book a Demo</span>
+              </span>
             </a>
           </motion.div>
 
@@ -322,7 +320,7 @@ function LivePreview() {
         right: 20,
         background: '#111',
         color: '#fff',
-        borderRadius: 2,
+        borderRadius: 6,
         padding: '10px 14px',
         fontSize: '0.75rem',
         fontFamily: 'inherit',
@@ -486,7 +484,7 @@ function ChatbotPreview({ variant }) {
             color: '#fff',
             fontSize: '0.9rem', fontWeight: 800,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: "'Apfel Grotezk', sans-serif",
           }}>{config.avatar}</div>
           <div>
             <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#111' }}>{config.title}</div>
