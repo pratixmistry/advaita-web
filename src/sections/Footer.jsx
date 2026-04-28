@@ -1,10 +1,51 @@
+import { lazy, Suspense } from 'react'
 import { FOOTER_LINKS } from '../constants/index.jsx'
 import logoImg from '../assets/Logo.png'
 
+/* Heavy canvas particle background — load lazily so it never blocks
+   the footer's first paint. */
+const FloatingParticlesBackground = lazy(
+  () => import('../components/FloatingParticlesBackground.jsx'),
+)
+
 export function Footer() {
   return (
-    <footer style={{ background: '#0A0A0A', color: '#F0EBE0', overflow: 'hidden', width: '100%' }}>
-      <div style={{ maxWidth: 1300, margin: '0 auto', borderLeft: '1px solid rgba(240,235,224,0.10)', borderRight: '1px solid rgba(240,235,224,0.10)' }}>
+    <footer
+      style={{
+        background: '#0A0A0A',
+        color: '#F0EBE0',
+        overflow: 'hidden',
+        width: '100%',
+        position: 'relative',
+      }}
+    >
+      {/* Animated particle background */}
+      <Suspense fallback={null}>
+        <FloatingParticlesBackground
+          particleCount={70}
+          particleSize={2}
+          particleOpacity={0.55}
+          glowIntensity={12}
+          movementSpeed={0.4}
+          mouseInfluence={140}
+          mouseGravity="attract"
+          gravityStrength={60}
+          glowAnimation="ease"
+          backgroundColor="transparent"
+          particleColor="#F47B20"
+        />
+      </Suspense>
+
+      <div
+        style={{
+          maxWidth: 1300,
+          margin: '0 auto',
+          borderLeft: '1px solid rgba(240,235,224,0.10)',
+          borderRight: '1px solid rgba(240,235,224,0.10)',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
       <div className="lp-wrap">
         {/* Top: logo column + link columns */}
         <div className="lp-footer-cols">

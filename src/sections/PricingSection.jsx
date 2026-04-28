@@ -108,7 +108,7 @@ function CheckIcon({ accent = '#F47B20' }) {
 
 function PricingCard({ tier, cycle, featured }) {
   const price = PRICES[tier][cycle]
-  const ctaLabel = tier === 'Basic' ? 'Get Started' : tier === 'Pro' ? 'Get Early Access' : 'Contact Us'
+  const ctaLabel = tier === 'Basic' ? 'Get Started' : tier === 'Pro' ? 'Get Started' : 'Get Started'
   const ctaHref  = tier === 'Max' ? '#contact' : '#waitlist'
 
   return (
