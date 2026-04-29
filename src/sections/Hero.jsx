@@ -41,21 +41,22 @@ export function Hero() {
         <div className="lp-wrap-wide" style={{ paddingTop: 72, paddingBottom: 0, textAlign: 'center', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
           {/* Release badge */}
-         {/* <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
+         <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
              <span style={{
               display: 'inline-flex', alignItems: 'center',
-              background: '#FAFAF8', color: 'black', border: '1px solid #E0E0D9',
-              fontSize: '0.7rem', fontWeight: 400,
+              background: '#011c21', color: 'white', border: '1px solid #E0E0D9',
+              fontSize: '0.3rem', fontWeight: 400,
               padding: '4px 12px', borderRadius: 6,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
             }}>
-              Release
-            </span>
-            <span style={{ fontSize: '0.88rem', color: '#3a3a3a', fontWeight: 500 }}>
-              Discover Our Latest SDK 
+            
+            <span style={{ fontSize: '0.88rem', color: 'white', fontWeight: 400 }}>
+              Startup Srujan Grant S4 - backed by IHub
             </span> 
-          </motion.div> */}
+            
+            </span>
+          </motion.div> 
 
           {/* Headline */}
           <motion.h1

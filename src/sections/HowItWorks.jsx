@@ -434,8 +434,9 @@ export function HowItWorks() {
     <section
       id="how-it-works"
       style={{
-        background:
-          'radial-gradient(ellipse at 50% -10%, #1a1a1a 0%, #111111 35%, #0a0a0a 70%, #000000 100%)',
+        /*background:
+          'radial-gradient(ellipse at 50% -10%, #1a1a1a 0%, #111111 35%, #0a0a0a 70%, #000000 100%', */
+        background: '#011c21',
         padding: '110px 0 120px',
         position: 'relative',
         overflow: 'hidden',
@@ -514,7 +515,7 @@ export function HowItWorks() {
               fontSize: 'clamp(2.2rem, 4.6vw, 3.4rem)',
               lineHeight: 1.1,
               letterSpacing: '-0.03em',
-              color: '#fff',
+              color: '#cdcafe',
               margin: 0,
             }}
           >
@@ -574,7 +575,7 @@ export function HowItWorks() {
               fontSize: 'clamp(2rem, 4.2vw, 3.1rem)',
               lineHeight: 1.1,
               letterSpacing: '-0.03em',
-              color: '#fff',
+              color: '#cdcafe',
               margin: '0 0 14px',
             }}
           >

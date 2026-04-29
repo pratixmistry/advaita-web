@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import logoImg from '../assets/Logo.png'
+import HamburgerMenu from './HamburgerMenu.jsx'
 import { LOGIN_URL, DASHBOARD_URL, isAuthenticated } from '../utils/auth.js'
 
 const NAV_DROPDOWNS = [
@@ -186,7 +187,7 @@ export function Navbar({ onPricing, onSdks, onDocs }) {
                               textDecoration: 'none',
                               transition: 'background 0.15s',
                             }}
-                            onMouseEnter={e => e.currentTarget.style.background = '#FAFAF4'}
+                            onMouseEnter={e => e.currentTarget.style.background = '#f8f9f6'}
                             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                           >
                             <div style={{ fontSize: '0.9rem', fontWeight: 600, color: '#111' }}>{l.label}</div>
@@ -201,8 +202,17 @@ export function Navbar({ onPricing, onSdks, onDocs }) {
             ))}
           </div>
 
-          {/* Desktop CTA (right column) */}
-          <div className="lp-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10, justifySelf: 'end' }}>
+          {/* Right column — wraps both desktop CTA and mobile hamburger so
+              the right-most slot of the 3-column nav grid is always filled. */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              justifySelf: 'end',
+            }}
+          >
+          <div className="lp-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             {authed ? (
               <a
                 href={DASHBOARD_URL}
@@ -251,30 +261,17 @@ export function Navbar({ onPricing, onSdks, onDocs }) {
             )}
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="mobile-menu-btn"
-            onClick={() => setMobileOpen(o => !o)}
-            aria-label="Toggle menu"
-            style={{
-              display: 'none',
-              flexDirection: 'column',
-              gap: 5,
-              padding: 8,
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            {[0,1,2].map(i => (
-              <span key={i} style={{
-                width: 22, height: 2, background: '#111', display: 'block',
-                transition: 'all 0.25s ease',
-                transform: mobileOpen && i === 0 ? 'rotate(45deg) translateY(7px)' : mobileOpen && i === 2 ? 'rotate(-45deg) translateY(-7px)' : 'none',
-                opacity: mobileOpen && i === 1 ? 0 : 1,
-              }} />
-            ))}
-          </button>
+          {/* Mobile hamburger — Framer-style morphing icon */}
+          <div className="mobile-menu-btn" style={{ display: 'none' }}>
+            <HamburgerMenu
+              open={mobileOpen}
+              onToggle={(next) => setMobileOpen(next)}
+              strokeColor="#111111"
+              strokeWidth={3}
+              size={32}
+            />
+          </div>
+          </div>
         </div>
       </nav>
 
@@ -311,7 +308,7 @@ export function Navbar({ onPricing, onSdks, onDocs }) {
             transition={{ duration: 0.22 }}
             style={{
               position: 'sticky',
-              top: 72,
+              top: 80,
               zIndex: 59,
               background: '#fff',
               borderBottom: '1px solid rgba(17,17,17,0.08)',

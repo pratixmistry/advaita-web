@@ -120,7 +120,6 @@ export default function App({ onPricing, onSdks, onDocs }) {
               individual chunks render the moment they're ready, instead of
               blocking on the slowest one. */}
           <Suspense fallback={<SectionFallback />}><ProblemStatement /></Suspense>
-          <InvestmentBanner />
           <Suspense fallback={<SectionFallback />}><CapabilitiesBento /></Suspense>
           <Suspense fallback={<SectionFallback />}><HowItWorks /></Suspense>
           <Suspense fallback={<SectionFallback />}><NonFunctionalStats /></Suspense>

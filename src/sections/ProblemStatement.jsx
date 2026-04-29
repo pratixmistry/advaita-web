@@ -175,7 +175,7 @@ export function ProblemStatement() {
     <section
       id="problem"
       className="lp-grid-bg"
-      style={{ background: 'var(--adv-bg)', padding: '96px 0' }}
+      style={{ background: '#f8f8f6', padding: '96px 0' }}
     >
       <div className="lp-wrap-wide" ref={ref}>
         {/* Header */}
@@ -199,7 +199,7 @@ export function ProblemStatement() {
           </span>
           <h2
             style={{
-              fontFamily: "'Apfel Grotezk', sans-serif",
+              fontFamily: "'Apfel Grotez', sans-serif",
               fontWeight: 800,
               fontSize: 'clamp(2rem, 4.2vw, 3.2rem)',
               lineHeight: 1.08,

@@ -330,8 +330,8 @@ body { background: var(--adv-bg); color: var(--adv-ink); }
 @media (max-width: 767px) {
   .lp-nav-links { display: none !important; }
   .lp-nav-actions { display: none !important; }
-  .mobile-menu-btn { display: flex !important; }
-  .lp-footer-cols { grid-template-columns: 1fr 1fr !important; }
+  .mobile-menu-btn { display: flex !important; grid-column: 3; justify-self: end;}
+  .lp-footer-cols { grid-template-columns: 1fr 1fr !important;}
   .lp-hero-grid { gap: 48px; }
   .banner-funding { display: none !important; }
 

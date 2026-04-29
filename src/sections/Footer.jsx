@@ -122,7 +122,7 @@ export function Footer() {
 
       {/* Giant brand wordmark at the bottom */}
       <div style={{ padding: '0 32px', overflow: 'hidden', lineHeight: 1, textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: 32, paddingBottom: 0 }}>
-        <div className="footer-brand-text" style={{fontFamily:'Apfel Grotezk'}}>ADVAITA</div>
+        <div className="footer-brand-text" style={{fontFamily:'IBM Plex Sans'}}>ADVAITA</div>
       </div>
       </div>
     </footer>
