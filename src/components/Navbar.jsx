@@ -90,6 +90,7 @@ export function Navbar({ onPricing, onSdks, onDocs }) {
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}>
               ADVAITA INTELLIGENCE
             </span>
@@ -205,11 +206,13 @@ export function Navbar({ onPricing, onSdks, onDocs }) {
           {/* Right column — wraps both desktop CTA and mobile hamburger so
               the right-most slot of the 3-column nav grid is always filled. */}
           <div
+            className="lp-nav-right"
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: 10,
               justifySelf: 'end',
+              gridColumn: 3,
             }}
           >
           <div className="lp-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

@@ -327,10 +327,11 @@ body { background: var(--adv-bg); color: var(--adv-ink); }
 }
 
 /* ─── MOBILE NAV ──────────────────────────────────────────────── */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .lp-nav-links { display: none !important; }
   .lp-nav-actions { display: none !important; }
-  .mobile-menu-btn { display: flex !important; grid-column: 3; justify-self: end;}
+  .mobile-menu-btn { display: flex !important; }
+  .lp-nav-right { grid-column: 3 !important; justify-self: end !important; }
   .lp-footer-cols { grid-template-columns: 1fr 1fr !important;}
   .lp-hero-grid { gap: 48px; }
   .banner-funding { display: none !important; }
@@ -356,8 +357,8 @@ body { background: var(--adv-bg); color: var(--adv-ink); }
 
 /* ─── LOGO MOBILE ─────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .lp-logo-img { width: 36px !important; height: 36px !important; }
-  .lp-logo-text { font-size: 0.95rem !important; }
+  .lp-logo-img { width: 30px !important; height: 30px !important; }
+  .lp-logo-text { font-size: 0.78rem !important; letter-spacing: 0 !important; }
 }
 @media (max-width: 360px) {
   .lp-logo-text { display: none !important; }
