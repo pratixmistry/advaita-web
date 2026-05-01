@@ -364,6 +364,23 @@ body { background: var(--adv-bg); color: var(--adv-ink); }
   .lp-logo-text { display: none !important; }
 }
 
+/* ─── HERO SPLIT LAYOUT RESPONSIVE ──────────────────────────── */
+/* Collapse two-panel split to stacked on tablet/mobile */
+@media (max-width: 900px) {
+  .hero-split {
+    flex-direction: column !important;
+  }
+  .hero-split-preview {
+    flex: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--adv-border);
+  }
+  .hero-split-sidebar {
+    flex: none !important;
+    padding: 36px 24px 48px !important;
+  }
+}
+
 /* ─── HERO MOBILE / TABLET ───────────────────────────────────── */
 @media (max-width: 900px) {
   /* Tabs stack 2-2-1: two per row, last one spans full width */

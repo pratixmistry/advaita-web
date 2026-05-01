@@ -15,7 +15,7 @@ const fadeUp = {
 }
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }
 
-const AUTO_TAB_DURATION = 5 /* seconds each tab stays active */
+const AUTO_TAB_DURATION = 5
 
 export function Hero() {
   const [active, setActive] = useState('live')
@@ -24,239 +24,291 @@ export function Hero() {
 
   const advanceTab = () => {
     const idx = TABS.findIndex(t => t.id === active)
-    const next = TABS[(idx + 1) % TABS.length]
-    setActive(next.id)
+    setActive(TABS[(idx + 1) % TABS.length].id)
   }
 
   const handleTabClick = (id) => {
     setActive(id)
-    setCycleKey(k => k + 1) /* reset fill animation on manual click */
+    setCycleKey(k => k + 1)
   }
 
   return (
-    <section className="lp-grid-bg" style={{ background: 'var(--adv-bg)', position: 'relative', overflow: 'hidden' }}>
-      <motion.div variants={stagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <section
+      className="lp-grid-bg"
+      style={{ background: 'var(--adv-bg)', position: 'relative', overflow: 'hidden' }}
+    >
+      <motion.div variants={stagger} initial="hidden" animate="visible">
 
-        {/* ── Centered header content (inside padded wrap) ── */}
-        <div className="lp-wrap-wide" style={{ paddingTop: 72, paddingBottom: 0, textAlign: 'center', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* ── Top zone: left-aligned headline ── */}
+        <div className="lp-wrap-wide" style={{ paddingTop: 72, paddingBottom: 52 }}>
 
-          {/* Release badge */}
-         <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
-             <span style={{
+          <motion.div variants={fadeUp} style={{ marginBottom: 28 }}>
+            <span style={{
               display: 'inline-flex', alignItems: 'center',
-              background: '#011c21', color: 'white', border: '1px solid #E0E0D9',
-              fontSize: '0.3rem', fontWeight: 400,
-              padding: '4px 12px', borderRadius: 6,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
+              background: '#011c21', color: '#fff',
+              border: '1px solid #E0E0D9',
+              padding: '4px 14px', borderRadius: 6,
+              fontSize: '0.88rem', fontWeight: 400,
+              letterSpacing: '0.01em',
             }}>
-            
-            <span style={{ fontSize: '0.88rem', color: 'white', fontWeight: 400 }}>
               Startup Srujan Grant S4 - backed by IHub
-            </span> 
-            
             </span>
-          </motion.div> 
+          </motion.div>
 
-          {/* Headline */}
           <motion.h1
             variants={fadeUp}
             style={{
               fontFamily: "'Apfel Grotezk', sans-serif",
               fontWeight: 500,
-              fontSize: 'clamp(2.4rem, 5.4vw, 4.5rem)',
-              lineHeight: 1.06,
+              fontSize: 'clamp(2.6rem, 5.6vw, 5rem)',
+              lineHeight: 1.04,
               letterSpacing: '-0.035em',
               color: '#111',
-              margin: '0 0 20px',
-              maxWidth: 860,
+              margin: 0,
+              maxWidth: 820,
             }}
           >
-            The AI Analytics Platform for Faster, Deeper Decisions.
+            The AI Analytics Platform<br />
+            for Faster, Deeper Decisions.
           </motion.h1>
+        </div>
 
-          {/* Subheading */}
-          <motion.p
-            variants={fadeUp}
+        {/* ── Bottom zone: preview (left) + sidebar (right) ── */}
+        <motion.div
+          variants={fadeUp}
+          className="hero-split"
+          style={{
+            display: 'flex',
+            alignItems: 'stretch',
+            width: '100%',
+            borderTop: '1px solid var(--adv-border)',
+          }}
+        >
+          {/* Left: tabs + dashboard preview */}
+          <div
+            className="hero-split-preview"
             style={{
-              fontFamily: "'Apfel Grotezk', sans-serif",
-              fontSize: '1.05rem',
-              color: '#6b6b6b',
-              lineHeight: 1.6,
-              margin: '0 auto 36px',
-              maxWidth: 560,
-              fontWeight: 400,
+              flex: '0 0 68%',
+              display: 'flex',
+              flexDirection: 'column',
+              borderRight: '1px solid var(--adv-border)',
+              overflow: 'hidden',
             }}
           >
-            From data overload to unified clarity — AI that helps you see the complete picture.
-          </motion.p>
-
-          {/* CTA row */}
-          <motion.div variants={fadeUp} style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 56 }}>
-            <a href="#how-it-works" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              padding: '13px 24px',
-              background: '#fff',
-              color: '#111',
-              border: '1px solid rgba(17,17,17,0.14)',
-              borderRadius: 6,
-              fontSize: '0.92rem',
-              fontWeight: 600,
-              textDecoration: 'none',
-              fontFamily: 'inherit',
-              transition: 'background 0.18s',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#F5F5EF' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#fff' }}
+            {/* Tabs strip */}
+            <div
+              className="hero-tabs"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${TABS.length}, 1fr)`,
+                background: '#fff',
+                borderBottom: '1px solid var(--adv-border)',
+                flexShrink: 0,
+              }}
             >
-              Get Started Now
-            </a>
-            <a href="#waitlist" className="login-btn" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              padding: '13px 24px',
-              background: '#F47B20',
-              color: '#fff',
-              border: '1px solid #F47B20',
-              borderRadius: 6,
-              fontSize: '0.92rem',
-              fontWeight: 700,
-              textDecoration: 'none',
-              fontFamily: 'inherit',
+              {TABS.map((t, i) => {
+                const isActive = t.id === active
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => handleTabClick(t.id)}
+                    style={{
+                      position: 'relative',
+                      padding: '16px 10px',
+                      background: 'transparent',
+                      color: isActive ? '#111' : '#6b6b6b',
+                      border: 'none',
+                      borderRight: i < TABS.length - 1 ? '1px solid var(--adv-border)' : 'none',
+                      fontSize: '0.88rem',
+                      fontWeight: isActive ? 700 : 500,
+                      cursor: 'pointer',
+                      fontFamily: 'inherit',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      transition: 'color 0.25s',
+                      zIndex: 1,
+                    }}
+                  >
+                    {isActive && (
+                      <motion.span
+                        key={`fill-${t.id}-${cycleKey}`}
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: AUTO_TAB_DURATION, ease: 'linear' }}
+                        onAnimationComplete={advanceTab}
+                        style={{
+                          position: 'absolute', top: 0, left: 0, bottom: 0,
+                          background: t.fill, zIndex: -1,
+                        }}
+                      />
+                    )}
+                    {isActive && (
+                      <motion.span
+                        key={`underline-${t.id}-${cycleKey}`}
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: AUTO_TAB_DURATION, ease: 'linear' }}
+                        style={{
+                          position: 'absolute', left: 0, bottom: 0,
+                          height: 2, background: '#F47B20',
+                        }}
+                      />
+                    )}
+                    <span style={{ position: 'relative' }}>{t.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Dashboard preview */}
+            <div
+              className="hero-preview-wrap"
+              style={{
+                flex: 1,
+                minHeight: 480,
+                padding: '40px 40px 0',
+                background: `linear-gradient(135deg, ${activeTab.fill.replace(/[\d.]+\)/, '0.55)')} 0%, #F47B20 28%, #F5D000 58%, #C9B8F0 100%)`,
+                transition: 'background 0.6s',
+                position: 'relative',
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+              }}
+            >
+              <div style={{
+                position: 'absolute', inset: 0,
+                backgroundImage: `
+                  linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px)`,
+                backgroundSize: '48px 48px',
+                pointerEvents: 'none',
+              }} />
+              <DashboardPreview activeTab={active} />
+            </div>
+          </div>
+
+          {/* Right sidebar: description + CTAs */}
+          <div
+            className="hero-split-sidebar"
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              padding: '48px 44px 56px',
+              background: 'var(--adv-bg)',
+            }}
+          >
+            <p style={{
+              fontFamily: "'Apfel Grotezk', sans-serif",
+              fontSize: '1.2rem',
+              fontWeight: 600,
+              color: '#111',
+              lineHeight: 1.38,
+              margin: '0 0 12px',
             }}>
-              <span className="login-btn-inner">
-                <span className="login-btn-text">Book a Demo</span>
-                <span className="login-btn-text login-btn-text--hover" aria-hidden="true">Book a Demo</span>
-              </span>
-            </a>
-          </motion.div>
+              From data overload to unified clarity.
+            </p>
+            <p style={{
+              fontFamily: "'Apfel Grotezk', sans-serif",
+              fontSize: '0.95rem',
+              color: '#6b6b6b',
+              lineHeight: 1.65,
+              margin: '0 0 40px',
+              maxWidth: 300,
+            }}>
+              AI that helps you see the complete picture — across events, funnels, retention, and user research.
+            </p>
 
-        </div>
-        {/* ── End centered header. Below spans full frame width ── */}
+            {/* CTA buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <a
+                href="#waitlist"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '14px 18px',
+                  background: '#fff',
+                  color: '#111',
+                  border: '1px solid rgba(17,17,17,0.16)',
+                  borderRadius: 8,
+                  fontSize: '0.92rem',
+                  fontWeight: 500,
+                  textDecoration: 'none',
+                  fontFamily: 'inherit',
+                  transition: 'background 0.18s, border-color 0.18s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#F5F5EF'; e.currentTarget.style.borderColor = 'rgba(17,17,17,0.28)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = 'rgba(17,17,17,0.16)' }}
+              >
+                <span>
+                  <span style={{ color: '#6b6b6b', fontWeight: 400 }}>Get early access. </span>
+                  <strong style={{ fontWeight: 700 }}>Join the waitlist</strong>
+                </span>
+                <span style={{ fontSize: '1rem', color: '#6b6b6b' }}>→</span>
+              </a>
 
-        {/* Tabs strip — spans to frame border */}
-        <motion.div variants={fadeUp} className="hero-tabs" style={{
-          width: '100%',
-          display: 'grid',
-          gridTemplateColumns: `repeat(${TABS.length}, 1fr)`,
-          background: '#fff',
-          borderTop: '1px solid var(--adv-border)',
-          borderBottom: 'none',
-          position: 'relative',
-          overflow: 'hidden',
-        }}>
-            {TABS.map((t, i) => {
-              const isActive = t.id === active
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => handleTabClick(t.id)}
-                  style={{
-                    position: 'relative',
-                    padding: '16px 10px',
-                    background: 'transparent',
-                    color: isActive ? '#111' : '#6b6b6b',
-                    border: 'none',
-                    borderRight: i < TABS.length - 1 ? '1px solid var(--adv-border)' : 'none',
-                    fontSize: '0.88rem',
-                    fontWeight: isActive ? 700 : 500,
-                    cursor: 'pointer',
-                    fontFamily: 'inherit',
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis',
-                    overflow: 'hidden',
-                    transition: 'color 0.25s',
-                    zIndex: 1,
-                  }}
-                >
-                  {isActive && (
-                    <motion.span
-                      key={`fill-${t.id}-${cycleKey}`}
-                      initial={{ width: '0%' }}
-                      animate={{ width: '100%' }}
-                      transition={{ duration: AUTO_TAB_DURATION, ease: 'linear' }}
-                      onAnimationComplete={() => advanceTab()}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        bottom: 0,
-                        background: t.fill,
-                        zIndex: -1,
-                      }}
-                    />
-                  )}
-                  {isActive && (
-                    <motion.span
-                      key={`underline-${t.id}-${cycleKey}`}
-                      initial={{ width: '0%' }}
-                      animate={{ width: '100%' }}
-                      transition={{ duration: AUTO_TAB_DURATION, ease: 'linear' }}
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        bottom: 0,
-                        height: 2,
-                        background: '#F47B20',
-                      }}
-                    />
-                  )}
-                <span style={{ position: 'relative' }}>{t.label}</span>
-              </button>
-            )
-          })}
+              <a
+                href="#how-it-works"
+                className="login-btn"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '14px 18px',
+                  background: '#F47B20',
+                  color: '#fff',
+                  border: '1px solid #F47B20',
+                  borderRadius: 8,
+                  fontSize: '0.92rem',
+                  fontWeight: 500,
+                  textDecoration: 'none',
+                  fontFamily: 'inherit',
+                }}
+              >
+                <span>
+                  <span style={{ fontWeight: 400, opacity: 0.85 }}>See it for yourself. </span>
+                  <strong style={{ fontWeight: 700 }}>Book a Demo</strong>
+                </span>
+                <span style={{
+                  width: 28, height: 28, borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.22)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.7rem', flexShrink: 0,
+                }}>▶</span>
+              </a>
+            </div>
+          </div>
         </motion.div>
 
-        {/* Dashboard preview — spans full frame width, fixed height */}
-        <motion.div variants={fadeUp} className="hero-preview-wrap" style={{
-          width: '100%',
-          height: 560,
-          position: 'relative',
-          padding: '48px clamp(40px, 6vw, 96px) 0',
-          background: `linear-gradient(135deg, ${activeTab.fill.replace(/[\d.]+\)/, '0.55)')} 0%, #F47B20 28%, #F5D000 58%, #C9B8F0 100%)`,
-          overflow: 'hidden',
-          transition: 'background 0.6s',
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-        }}>
-          <div style={{
-            position: 'absolute', inset: 0,
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px)`,
-            backgroundSize: '48px 48px',
-            pointerEvents: 'none',
-          }} />
-
-          <DashboardPreview activeTab={active} />
-        </motion.div>
       </motion.div>
     </section>
   )
 }
 
-/* ── Dashboard preview — fixed-height card, only content switches ── */
-const PREVIEW_HEIGHT = 440
-
+/* ── Dashboard preview card ── */
+const PREVIEW_HEIGHT = 420
 
 function DashboardPreview({ activeTab }) {
   return (
-    <div className="hero-dashboard-card" style={{
-      position: 'relative',
-      background: '#fff',
-      borderTopLeftRadius: 4,
-      borderTopRightRadius: 4,
-      border: '1px solid rgba(17,17,17,0.08)',
-      boxShadow: '0 24px 60px rgba(17,17,17,0.18)',
-      padding: 20,
-      width: '100%',
-      maxWidth: 1080,
-      height: PREVIEW_HEIGHT,
-      margin: '0 auto',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
-      {/* Header row — fixed height */}
+    <div
+      className="hero-dashboard-card"
+      style={{
+        position: 'relative',
+        background: '#fff',
+        borderTopLeftRadius: 4,
+        borderTopRightRadius: 4,
+        border: '1px solid rgba(17,17,17,0.08)',
+        boxShadow: '0 24px 60px rgba(17,17,17,0.18)',
+        padding: 20,
+        width: '100%',
+        maxWidth: 980,
+        height: PREVIEW_HEIGHT,
+        margin: '0 auto',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#111' }}>Analytics</span>
@@ -268,7 +320,6 @@ function DashboardPreview({ activeTab }) {
         </div>
       </div>
 
-      {/* Body — fills remaining space, content switches with rise + fade */}
       <div style={{ flex: 1, minHeight: 0, overflow: 'hidden', position: 'relative' }}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -291,7 +342,7 @@ function DashboardPreview({ activeTab }) {
   )
 }
 
-/* ─── Live Events preview (default) ──────────────────────── */
+/* ─── Live Events preview ── */
 function LivePreview() {
   return (
     <div style={{ position: 'relative' }}>
@@ -316,15 +367,10 @@ function LivePreview() {
       </svg>
 
       <div className="hero-live-tooltip" style={{
-        position: 'absolute',
-        top: 70,
-        right: 20,
-        background: '#111',
-        color: '#fff',
-        borderRadius: 6,
-        padding: '10px 14px',
-        fontSize: '0.75rem',
-        fontFamily: 'inherit',
+        position: 'absolute', top: 70, right: 20,
+        background: '#111', color: '#fff',
+        borderRadius: 6, padding: '10px 14px',
+        fontSize: '0.75rem', fontFamily: 'inherit',
         boxShadow: '0 14px 30px rgba(0,0,0,0.24)',
         minWidth: 150,
       }}>
@@ -345,14 +391,14 @@ function LivePreview() {
   )
 }
 
-/* ─── Funnels preview ────────────────────────────────────── */
+/* ─── Funnels preview ── */
 function FunnelsPreview() {
   const steps = [
-    { label: 'Landing page',   pct: 100, count: '48,210' },
+    { label: 'Landing page',    pct: 100, count: '48,210' },
     { label: 'Sign up started', pct: 62,  count: '29,890' },
     { label: 'Sign up complete', pct: 38,  count: '18,320' },
-    { label: 'Activated',      pct: 24,  count: '11,570' },
-    { label: 'Paid',           pct: 9,   count:  '4,338' },
+    { label: 'Activated',       pct: 24,  count: '11,570' },
+    { label: 'Paid',            pct: 9,   count:  '4,338' },
   ]
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '4px 6px' }}>
@@ -369,12 +415,7 @@ function FunnelsPreview() {
             </span>
           </div>
           <div style={{ height: 16, background: '#F4F2EC' }}>
-            <div style={{
-              width: `${s.pct}%`,
-              height: '100%',
-              background: `linear-gradient(90deg, #F47B20, #F5D000)`,
-              transition: 'width 0.5s',
-            }} />
+            <div style={{ width: `${s.pct}%`, height: '100%', background: 'linear-gradient(90deg, #F47B20, #F5D000)', transition: 'width 0.5s' }} />
           </div>
         </div>
       ))}
@@ -382,7 +423,7 @@ function FunnelsPreview() {
   )
 }
 
-/* ─── Retention preview ─────────────────────────────────── */
+/* ─── Retention preview ── */
 function RetentionPreview() {
   const rows = 6, cols = 10
   const data = Array.from({ length: rows }, (_, r) =>
@@ -432,113 +473,57 @@ function RetentionPreview() {
   )
 }
 
-/* ─── Chatbot preview (DS / UR) ─────────────────────────── */
+/* ─── Chatbot preview (DS / UR) ── */
 function ChatbotPreview({ variant }) {
   const config = variant === 'ds'
     ? {
-        title: 'DS Chatbot',
-        subtitle: 'Your on-call data scientist',
-        accent: '#1A7A2E',
-        avatar: 'DS',
+        title: 'DS Chatbot', subtitle: 'Your on-call data scientist',
+        accent: '#1A7A2E', avatar: 'DS',
         messages: [
           { role: 'user', text: 'Why did conversion drop last week?' },
-          {
-            role: 'bot',
-            text: 'I ran a cohort split. Conversion is down <b style="color:#F47B20">−12%</b> for users on Safari 17.3 starting Mar 28. The drop correlates with the new cookie-storage policy.',
-            chart: 'dropSparkline',
-          },
+          { role: 'bot', text: 'I ran a cohort split. Conversion is down <b style="color:#F47B20">−12%</b> for users on Safari 17.3 starting Mar 28. The drop correlates with the new cookie-storage policy.', chart: 'dropSparkline' },
           { role: 'user', text: 'Confidence?' },
           { role: 'bot', text: '<b>94%</b> — based on 6 days of traffic. Want me to build an A/B test to confirm?' },
         ],
       }
     : {
-        title: 'UR Chatbot',
-        subtitle: 'Your always-on user researcher',
-        accent: '#8A74E5',
-        avatar: 'UR',
+        title: 'UR Chatbot', subtitle: 'Your always-on user researcher',
+        accent: '#8A74E5', avatar: 'UR',
         messages: [
           { role: 'user', text: 'What are users complaining about this week?' },
-          {
-            role: 'bot',
-            text: 'Analyzed <b>1,284</b> sessions. Top friction points:<br/>• Onboarding step 3 (47 drop-offs)<br/>• Payment form (32 rage clicks)<br/>• Mobile nav collapse (19 reports)',
-            chart: 'friction',
-          },
+          { role: 'bot', text: 'Analyzed <b>1,284</b> sessions. Top friction points:<br/>• Onboarding step 3 (47 drop-offs)<br/>• Payment form (32 rage clicks)<br/>• Mobile nav collapse (19 reports)', chart: 'friction' },
           { role: 'user', text: 'Show me a session replay of the onboarding issue.' },
           { role: 'bot', text: 'Queued 3 recent session replays where users stalled for <b>>45s</b> on step 3. Opening now.' },
         ],
       }
 
   return (
-    <div className="hero-chat-grid" style={{
-      display: 'grid',
-      gridTemplateColumns: '240px 1fr',
-      gap: 18,
-      height: '100%',
-      overflow: 'hidden',
-    }}>
-      {/* Sidebar */}
+    <div className="hero-chat-grid" style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 18, height: '100%', overflow: 'hidden' }}>
       <div className="hero-chat-sidebar" style={{ borderRight: '1px solid var(--adv-border)', paddingRight: 18 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
-          <div style={{
-            width: 40, height: 40,
-            background: config.accent,
-            color: '#fff',
-            fontSize: '0.9rem', fontWeight: 800,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontFamily: "'Apfel Grotezk', sans-serif",
-          }}>{config.avatar}</div>
+          <div style={{ width: 40, height: 40, background: config.accent, color: '#fff', fontSize: '0.9rem', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Apfel Grotezk', sans-serif" }}>{config.avatar}</div>
           <div>
             <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#111' }}>{config.title}</div>
             <div style={{ fontSize: '0.7rem', color: '#888' }}>{config.subtitle}</div>
           </div>
         </div>
-
-        {/* Thread list */}
-        <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#8a8a8a', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 10px' }}>
-          Recent threads
-        </div>
-        {[
-          'Retention drop · Safari',
-          'Funnel drop-off · Step 3',
-          'Paid cohort Q1',
-          'Activation definition',
-        ].map((t, i) => (
+        <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#8a8a8a', letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 10px' }}>Recent threads</div>
+        {['Retention drop · Safari','Funnel drop-off · Step 3','Paid cohort Q1','Activation definition'].map((t, i) => (
           <div key={t} style={{
-            padding: '8px 10px',
-            fontSize: '0.76rem',
+            padding: '8px 10px', fontSize: '0.76rem',
             color: i === 0 ? '#111' : '#6b6b6b',
             background: i === 0 ? '#FAFAF4' : 'transparent',
             borderLeft: i === 0 ? `2px solid ${config.accent}` : '2px solid transparent',
-            fontWeight: i === 0 ? 600 : 500,
-            marginBottom: 2,
-          }}>
-            {t}
-          </div>
+            fontWeight: i === 0 ? 600 : 500, marginBottom: 2,
+          }}>{t}</div>
         ))}
       </div>
 
-      {/* Chat stream */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 0, overflow: 'auto' }}>
-        {config.messages.map((m, i) => (
-          <ChatBubble key={i} msg={m} accent={config.accent} />
-        ))}
-
-        {/* Input */}
-        <div style={{
-          marginTop: 'auto',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          border: '1px solid var(--adv-border)',
-          padding: '8px 10px',
-          background: '#FAFAF4',
-        }}>
+        {config.messages.map((m, i) => <ChatBubble key={i} msg={m} accent={config.accent} />)}
+        <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 8, border: '1px solid var(--adv-border)', padding: '8px 10px', background: '#FAFAF4' }}>
           <span style={{ flex: 1, fontSize: '0.78rem', color: '#999' }}>Ask {config.title}…</span>
-          <button style={{
-            background: config.accent, color: '#fff', border: 'none',
-            padding: '6px 12px', fontSize: '0.72rem', fontWeight: 700,
-            cursor: 'pointer', fontFamily: 'inherit',
-          }}>Send →</button>
+          <button style={{ background: config.accent, color: '#fff', border: 'none', padding: '6px 12px', fontSize: '0.72rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>Send →</button>
         </div>
       </div>
     </div>
@@ -548,30 +533,16 @@ function ChatbotPreview({ variant }) {
 function ChatBubble({ msg, accent }) {
   const isUser = msg.role === 'user'
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: isUser ? 'flex-end' : 'flex-start',
-    }}>
+    <div style={{ display: 'flex', justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
       <div style={{
-        maxWidth: '85%',
-        padding: '9px 13px',
-        fontSize: '0.8rem',
-        lineHeight: 1.55,
+        maxWidth: '85%', padding: '9px 13px',
+        fontSize: '0.8rem', lineHeight: 1.55,
         background: isUser ? '#111' : '#fff',
         border: isUser ? 'none' : `1px solid ${accent}33`,
         color: isUser ? '#fff' : '#111',
         position: 'relative',
       }}>
-        {!isUser && (
-          <div style={{
-            fontSize: '0.62rem',
-            fontWeight: 800,
-            color: accent,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            marginBottom: 3,
-          }}>AI</div>
-        )}
+        {!isUser && <div style={{ fontSize: '0.62rem', fontWeight: 800, color: accent, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 3 }}>AI</div>}
         <div dangerouslySetInnerHTML={{ __html: msg.text }} />
         {msg.chart === 'dropSparkline' && (
           <svg viewBox="0 0 220 40" width="100%" style={{ marginTop: 8, display: 'block' }}>
@@ -581,11 +552,7 @@ function ChatBubble({ msg, accent }) {
         )}
         {msg.chart === 'friction' && (
           <div style={{ marginTop: 10, display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {[
-              { l: 'Onboarding · step 3', v: 100 },
-              { l: 'Payment form',        v: 68 },
-              { l: 'Mobile nav',          v: 40 },
-            ].map(r => (
+            {[{ l: 'Onboarding · step 3', v: 100 }, { l: 'Payment form', v: 68 }, { l: 'Mobile nav', v: 40 }].map(r => (
               <div key={r.l} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: '0.7rem', color: '#6b6b6b', flex: '0 0 130px' }}>{r.l}</span>
                 <div style={{ flex: 1, height: 7, background: '#F4F2EC' }}>

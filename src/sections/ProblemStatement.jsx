@@ -327,6 +327,7 @@ export function ProblemStatement() {
           flex-direction: column;
           gap: 22px;
           min-height: 540px;
+          min-width: 0;
         }
         .ps-col-old { position: relative; }
         .ps-col-new {
@@ -433,8 +434,9 @@ export function ProblemStatement() {
           padding: 14px;
           border-radius: 6px;
           min-height: 220px;
+          min-width: 0;
+          overflow: hidden;
         }
-        .ps-viz-old { overflow: hidden; }
 
         .ps-dash-bar {
           display: flex;
@@ -661,6 +663,11 @@ export function ProblemStatement() {
             padding: 4px 0;
           }
           .ps-arrow svg { transform: rotate(90deg); }
+        }
+        @media (max-width: 600px) {
+          .ps-col {
+            padding: 24px 16px 20px;
+          }
         }
       `}</style>
     </section>
